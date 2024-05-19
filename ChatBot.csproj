@@ -73,6 +73,7 @@
     <Compile Include="Forms\UsersForms.Designer.cs">
       <DependentUpon>UsersForms.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="Models\ConversationItem.cs" />
     <Compile Include="Models\Conversation.cs" />

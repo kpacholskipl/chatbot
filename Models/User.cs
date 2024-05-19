@@ -22,14 +22,16 @@ namespace ChatBot.Models
         public string UpdatedAt { get; set; }
 
         public string Name { get; set; }
-
-        public List<User> GetFromDataSet(DataSet ds)
+        public User(int id, int subscriptionId, string email, int role, string password, string createdAt, string updatedAt, string name)
         {
-            List<User> users = new List<User>();
-
-
-
-            return users;
+            Id = id;
+            SubscriptionId = subscriptionId;
+            Email = email;
+            Role = role;
+            Password = password;
+            CreatedAt = createdAt;
+            UpdatedAt = updatedAt;
+            Name = name;
         }
     }
 }
