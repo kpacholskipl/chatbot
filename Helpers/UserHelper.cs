@@ -22,8 +22,15 @@ namespace ChatBot.Helpers
                 string createdAt = row["created_at"].ToString();
                 string updatedAt = row["updated_at"].ToString();
                 string name = row["name"].ToString();
+                string apiKey = row["api_key"].ToString();
 
-                User user = new User(id, subscriptionId, email, role, password, createdAt, updatedAt, name);
+                User user = new User(id, subscriptionId, email, role, password, name)
+                {
+                    CreatedAt = createdAt,
+                    UpdatedAt = updatedAt,
+                    ApiKey = apiKey
+                };
+
                 users.Add(user);
             }
 
@@ -34,8 +41,9 @@ namespace ChatBot.Helpers
             cmd.Parameters.AddWithValue("@subscriptionId", user.SubscriptionId);
             cmd.Parameters.AddWithValue("@email", user.Email);
             cmd.Parameters.AddWithValue("@password", user.Password);
-            cmd.Parameters.AddWithValue("@role", user.Name);
+            cmd.Parameters.AddWithValue("@role", user.Role);
             cmd.Parameters.AddWithValue("@name", user.Name);
+            cmd.Parameters.AddWithValue("@apiKey", user.ApiKey);
 
             return cmd;
         }
