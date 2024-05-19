@@ -17,7 +17,8 @@ namespace ChatBot.Services
             return new DatabaseHelper().SelectQuery(query, "Categories");
         }
 
-        public List<Category> GetCategories() => CategoryHelper.GetFromDataSet(GetCategoriesData());
+        public List<Category> GetListCategories() => CategoryHelper.GetFromDataSet(GetCategoriesData());
+        public DataSet GetCategories() => GetCategoriesData();
         public Category GetCategorie(int id) => CategoryHelper.GetFromDataSet(GetCategoriesData($"id = {id}")).FirstOrDefault();
 
         public bool CreateCategory(Category category)

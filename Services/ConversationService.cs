@@ -18,7 +18,8 @@ namespace ChatBot.Services
             return new DatabaseHelper().SelectQuery(query, "Conversations");
         }
 
-        public List<Conversation> GetConversations() => ConversationHelper.GetFromDataSet(GetConversationsData());
+        public List<Conversation> GetListConversations() => ConversationHelper.GetFromDataSet(GetConversationsData());
+        public DataSet GetConversations() => GetConversationsData();
         public Conversation GetConversation(int id) => ConversationHelper.GetFromDataSet(GetConversationsData($"id = {id}")).FirstOrDefault();
         public Conversation Login(string email, string password) => ConversationHelper.GetFromDataSet(GetConversationsData($"email = '{email}' AND password = '{password}'")).FirstOrDefault();
 
