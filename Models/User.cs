@@ -13,6 +13,7 @@ namespace ChatBot.Models
         public int SubscriptionId { get; set; }
 
         public string Email { get; set; }
+        public int Role { get; set; }
 
         public string Password { get; set; }
 

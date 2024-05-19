@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using ChatBot.Helpers;
 using ChatBot.Models;
@@ -12,17 +13,11 @@ namespace ChatBot.Services
             string query = "Select * from users";
             if (where != "")
                 query += $" WHERE {where}";
-            return new DatabaseHelper().GetByAdapter(query, "Users");
+            return new DatabaseHelper().ExecuteQuery(query, "Users");
         }
 
-        public DataSet GetUsers()
-        {
-            return GetUsersData();
-        }
-        public DataSet GetUser(string id)
-        {
-            return GetUsersData("id = " + id);
-        }
-      
+        public DataSet GetUsers() => GetUsersData();
+        public DataSet GetUser(int id) => GetUsersData($"id = {id}");
+        public DataSet Login(string email, string password) => GetUsersData($"email = '{email}' AND password = '{password}'");
     }
 }

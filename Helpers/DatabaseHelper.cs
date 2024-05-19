@@ -67,7 +67,7 @@ namespace ChatBot.Helpers
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = new SqlCommand(command) };
+                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = command };
                 }
 
             }

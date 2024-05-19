@@ -12,7 +12,7 @@ namespace ChatBot.Services
             string query = "Select * from subscriptions";
             if (where != "")
                 query += $" WHERE {where}";
-            return new DatabaseHelper().GetByQuery(query, "Subscriptions");
+            return new DatabaseHelper().ExecuteQuery(query, "Subscriptions");
         }
 
         public DataSet GetSubsciprtions() => GetSubsciprtionsData();
