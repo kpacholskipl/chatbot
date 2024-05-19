@@ -30,6 +30,8 @@
         {
             this.panelDesktop = new System.Windows.Forms.Panel();
             this.panelMenu = new System.Windows.Forms.Panel();
+            this.buttonUsers = new System.Windows.Forms.Button();
+            this.panelMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelDesktop
@@ -42,10 +44,25 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
+            this.panelMenu.Controls.Add(this.buttonUsers);
             this.panelMenu.Location = new System.Drawing.Point(2, 2);
             this.panelMenu.Name = "panelMenu";
             this.panelMenu.Size = new System.Drawing.Size(146, 447);
             this.panelMenu.TabIndex = 1;
+            // 
+            // buttonUsers
+            // 
+            this.buttonUsers.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonUsers.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUsers.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
+            this.buttonUsers.ForeColor = System.Drawing.Color.White;
+            this.buttonUsers.Location = new System.Drawing.Point(3, 3);
+            this.buttonUsers.Name = "buttonUsers";
+            this.buttonUsers.Size = new System.Drawing.Size(140, 40);
+            this.buttonUsers.TabIndex = 0;
+            this.buttonUsers.Text = "Users";
+            this.buttonUsers.UseVisualStyleBackColor = true;
+            this.buttonUsers.Click += new System.EventHandler(this.buttonUsers_Click);
             // 
             // AdminForm
             // 
@@ -56,6 +73,7 @@
             this.Controls.Add(this.panelDesktop);
             this.Name = "AdminForm";
             this.Text = "AdminForm";
+            this.panelMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -64,5 +82,6 @@
 
         private System.Windows.Forms.Panel panelDesktop;
         private System.Windows.Forms.Panel panelMenu;
+        private System.Windows.Forms.Button buttonUsers;
     }
 }
