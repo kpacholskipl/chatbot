@@ -7,31 +7,85 @@ namespace ChatBot.Helpers
 {
     public class DatabaseHelper
     {
-        //protected string _connectionString = "data source=sql.bsite.net\\MSSQL2016;initial catalog=kpacholski_chat_ai;user id=kpacholski_chat_ai;password=1234";
-        //protected string _connectionString = "data source=sql.bsite.net\\MSSQL2016;initial catalog=kapi1023_;user id=kapi1023_;password=Haslo123#$";
+        protected readonly string connectionString = @"Data Source=SQL6032.site4now.net;Initial Catalog=db_aa8e53_chat;User Id=db_aa8e53_chat_admin;Password=Test1234";
 
-        public DataSet GetByAdapter(string query, string table)
+        public DataSet ExecuteQuery(string query, string table)
         {
             DataSet ds = new DataSet();
             try
             {
-                var connectionString = @"Data Source=SQL6032.site4now.net;Initial Catalog=db_aa8e53_chat;User Id=db_aa8e53_chat_admin;Password=Test1234";
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-
-                    SqlDataAdapter adapter = new SqlDataAdapter
-                    {
-                        SelectCommand = new SqlCommand(query, conn)
-                    };
+                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = new SqlCommand(query, conn) };
                     adapter.Fill(ds, table);
                 }
 
-            }catch (SqlException ex)
+            }
+            catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
             }
             return ds;
         }
+        public DataSet ExecuteCommand(SqlCommand command)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = command };
+                    adapter.Fill(ds);
+                }
+            }
+            catch(SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return ds;
+        }
+        public bool ExecuteNonQuery(string query)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = new SqlCommand(query, conn) };
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            return true;
+        }
+        public bool ExecuteNonCommand(SqlCommand command)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = new SqlCommand(command) };
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            return true;
+        }
+
+
+
+
+        //public DataSet UpdateAdapter(string query())
+       // {
+
+//        }
         /*
            public static DataTable ExecuteQueryCommand(SqlCommand command)
            {
