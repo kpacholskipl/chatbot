@@ -24,7 +24,7 @@ namespace ChatBot.Helpers
                 string name = row["name"].ToString();
                 string apiKey = row["api_key"].ToString();
 
-                User user = new User(id, subscriptionId, email, role, password, name)
+                User user = new User(subscriptionId, email, role, password, name)
                 {
                     CreatedAt = createdAt,
                     Id = id,
