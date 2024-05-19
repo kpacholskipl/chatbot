@@ -34,6 +34,8 @@
             this.textBoxPassword = new System.Windows.Forms.TextBox();
             this.labelPassword = new System.Windows.Forms.Label();
             this.buttonLogin = new System.Windows.Forms.Button();
+            this.buttonFillAdmin = new System.Windows.Forms.Button();
+            this.buttonFillUser = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelWelcome
@@ -90,11 +92,33 @@
             this.buttonLogin.UseVisualStyleBackColor = true;
             this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
             // 
+            // buttonFillAdmin
+            // 
+            this.buttonFillAdmin.Location = new System.Drawing.Point(44, 310);
+            this.buttonFillAdmin.Name = "buttonFillAdmin";
+            this.buttonFillAdmin.Size = new System.Drawing.Size(75, 23);
+            this.buttonFillAdmin.TabIndex = 6;
+            this.buttonFillAdmin.Text = "admin";
+            this.buttonFillAdmin.UseVisualStyleBackColor = true;
+            this.buttonFillAdmin.Click += new System.EventHandler(this.buttonFillAdmin_Click);
+            // 
+            // buttonFillUser
+            // 
+            this.buttonFillUser.Location = new System.Drawing.Point(196, 310);
+            this.buttonFillUser.Name = "buttonFillUser";
+            this.buttonFillUser.Size = new System.Drawing.Size(75, 23);
+            this.buttonFillUser.TabIndex = 7;
+            this.buttonFillUser.Text = "user";
+            this.buttonFillUser.UseVisualStyleBackColor = true;
+            this.buttonFillUser.Click += new System.EventHandler(this.buttonFillUser_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(319, 345);
+            this.Controls.Add(this.buttonFillUser);
+            this.Controls.Add(this.buttonFillAdmin);
             this.Controls.Add(this.buttonLogin);
             this.Controls.Add(this.textBoxPassword);
             this.Controls.Add(this.labelPassword);
@@ -117,5 +141,7 @@
         private System.Windows.Forms.TextBox textBoxPassword;
         private System.Windows.Forms.Label labelPassword;
         private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Button buttonFillAdmin;
+        private System.Windows.Forms.Button buttonFillUser;
     }
 }

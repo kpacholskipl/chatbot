@@ -35,12 +35,13 @@ namespace ChatBot.Forms
 
                 if (userDataSet != null)
                 {
-                    var isAdmin = (int)userDataSet.Tables["Users"].Rows[0]["role"];
+                    //var isAdmin = (int)userDataSet.Tables["Users"].Rows[0]["role"];
 
-                    if (isAdmin == 1) {
-                        var frm = new AdminForm();
-                        frm.Show();
-                    }
+                    //if (isAdmin == 1) {
+                    //    var frm = new AdminForm();
+                    //    frm.Show();
+                    //}
+                    Console.WriteLine("test");
                     //else if (isAdmin == 0)
                     //{
                     //    var frm = new UserForm;
@@ -53,6 +54,18 @@ namespace ChatBot.Forms
             {
                 MessageBox.Show("The data entered was incorrect");
             }
+        }
+
+        private void buttonFillAdmin_Click(object sender, EventArgs e)
+        {
+            textBoxEmail.Text = "user4@example.com";
+            textBoxPassword.Text = "password4";
+        }
+
+        private void buttonFillUser_Click(object sender, EventArgs e)
+        {
+            textBoxEmail.Text = "user1@example.com";
+            textBoxPassword.Text = "password1";
         }
     }
 }
