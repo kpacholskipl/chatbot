@@ -16,10 +16,7 @@ namespace ChatBot
     {
         public Form1()
         {
-            //InitializeComponent();
-            //var test = new DatabaseHelper().GetByAdapter("Select * from Users", "Users");
-            //Console.WriteLine(test.ToString());
-            //Console.WriteLine("hehe");
+            InitializeComponent();
         }
 
         private void Form1_Load(object sender, EventArgs e)
