@@ -1,5 +1,7 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using ChatBot.Helpers;
 using ChatBot.Models;
 
@@ -15,7 +17,12 @@ namespace ChatBot.Services
             return new DatabaseHelper().ExecuteQuery(query, "Subscriptions");
         }
 
-        public DataSet GetSubsciprtions() => GetSubsciprtionsData();
-        public DataSet GetSubscription(int id) => GetSubsciprtionsData($"id = {id}");
+        public List<Subscription> GetSubsciprtions() => SubscriptionHelper.GetFromDataSet(GetSubsciprtionsData());
+        public Subscription GetSubsciprtion(int id) => SubscriptionHelper.GetFromDataSet(GetSubsciprtionsData($"id = {id}")).FirstOrDefault();
     }
 }
+
+
+
+
+

@@ -109,6 +109,7 @@
     <Compile Include="Forms\Views\User\MyAccountForm.Designer.cs">
       <DependentUpon>MyAccountForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\SubscriptionHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
     <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="Models\ConversationItem.cs" />

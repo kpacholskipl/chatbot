@@ -29,5 +29,15 @@ namespace ChatBot.Helpers
 
             return users;
         }
-     }
+        public static SqlCommand AddParametrsToSqlCommand(SqlCommand cmd, User user)
+        {
+            cmd.Parameters.AddWithValue("@subscriptionId", user.SubscriptionId);
+            cmd.Parameters.AddWithValue("@email", user.Email);
+            cmd.Parameters.AddWithValue("@password", user.Password);
+            cmd.Parameters.AddWithValue("@role", user.Name);
+            cmd.Parameters.AddWithValue("@name", user.Name);
+
+            return cmd;
+        }
+    }
 }

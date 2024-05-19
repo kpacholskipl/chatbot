@@ -23,5 +23,11 @@ namespace ChatBot.Models
             Model_3_5_Turbo,
             Model_4
         }
+        public Subscription(int id, string name, decimal price)
+        {
+            Id = id;
+            Name = name;
+            Price = price;
+        }
     }
 }
