@@ -16,7 +16,6 @@ namespace ChatBot.Helpers
             {
                 conn.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = new SqlCommand(query, conn) };
-                adapter.InsertCommand.ExecuteNonQuery();
                 adapter.Fill(ds, table);
             }
             catch (SqlException ex)
@@ -39,7 +38,6 @@ namespace ChatBot.Helpers
                 conn.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = command };
                 adapter.InsertCommand.Connection = conn;
-                adapter.InsertCommand.ExecuteNonQuery();
                 adapter.Fill(ds, table);
             }
             catch (SqlException ex)
