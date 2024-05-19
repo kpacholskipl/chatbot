@@ -24,9 +24,8 @@ namespace ChatBot.Models
         public string Name { get; set; }
 
         public string ApiKey { get; set; }
-        public User(int id, int subscriptionId, string email, int role, string password, string name)
+        public User(int subscriptionId, string email, int role, string password, string name)
         {
-            Id = id;
             SubscriptionId = subscriptionId;
             Email = email;
             Role = role;

@@ -27,6 +27,7 @@ namespace ChatBot.Helpers
                 User user = new User(id, subscriptionId, email, role, password, name)
                 {
                     CreatedAt = createdAt,
+                    Id = id,
                     UpdatedAt = updatedAt,
                     ApiKey = apiKey
                 };
