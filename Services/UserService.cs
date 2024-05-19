@@ -18,10 +18,11 @@ namespace ChatBot.Services
 
         public DataSet GetUsers() => GetUsersData();
         public DataSet GetUser(int id) => GetUsersData($"id = {id}");
-        public User Login(string email, string password)
+        public DataSet Login(string email, string password)
         {
             DataSet data = GetUsersData($"email = '{email}' AND password = '{password}'");
-            return new User().GetFromDataSet(data)[0];
+            var test = new User().GetFromDataSet(data)[0];
+            return GetUsersData($"email = '{email}' AND password = '{password}'");
         }
     }
 }
