@@ -116,6 +116,7 @@
       <DependentUpon>MyAccountForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CategoryHelper.cs" />
+    <Compile Include="Helpers\ConversationItemHelper.cs" />
     <Compile Include="Helpers\ConversationHelper.cs" />
     <Compile Include="Helpers\SubscriptionHelper.cs" />
     <Compile Include="Helpers\UserHelper.cs" />
