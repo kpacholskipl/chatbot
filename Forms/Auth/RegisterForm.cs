@@ -71,11 +71,23 @@ namespace ChatBot.Forms.Auth
                 return;
             }
 
-            //var newUser = new User(1, subscriptionPlan.Id, email, 0, password, );
+            var newUser = new User(subscriptionPlan.Id, email, 0, password, name);
 
-            //var userService = new UserService();
-            //userService.CreateUser();
+            var userService = new UserService();
+            var isAccountCreated = userService.CreateUser(newUser);
 
+            if (isAccountCreated)
+            {
+                var frm = new UserForm();
+                frm.Show();
+                frm.FormClosed += (s, args) => this.Close();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Something went wrong!");
+                return;
+            }
         }
         private bool IsValidEmail(string email)
         {
