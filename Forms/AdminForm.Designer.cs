@@ -34,16 +34,17 @@
             // 
             // panelDesktop
             // 
-            this.panelDesktop.Location = new System.Drawing.Point(137, 2);
+            this.panelDesktop.Location = new System.Drawing.Point(154, 2);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(663, 447);
+            this.panelDesktop.Size = new System.Drawing.Size(646, 447);
             this.panelDesktop.TabIndex = 0;
             // 
             // panelMenu
             // 
+            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.panelMenu.Location = new System.Drawing.Point(2, 2);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(129, 447);
+            this.panelMenu.Size = new System.Drawing.Size(146, 447);
             this.panelMenu.TabIndex = 1;
             // 
             // AdminForm

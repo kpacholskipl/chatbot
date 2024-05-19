@@ -25,3 +25,4 @@ D:\Projects\chatbot\bin\Debug\ChatBot.pdb
 D:\Projects\chatbot\bin\Debug\System.Data.OleDb.dll
 D:\Projects\chatbot\bin\Debug\System.Data.OleDb.xml
 D:\Projects\chatbot\obj\Debug\ChatBot.csproj.Up2Date
+D:\Projects\chatbot\obj\Debug\ChatBot.Forms.AdminForm.resources

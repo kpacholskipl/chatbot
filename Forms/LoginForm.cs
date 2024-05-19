@@ -35,12 +35,19 @@ namespace ChatBot.Forms
 
                 if (userDataSet != null)
                 {
-                    var isAdmin = userDataSet.Tables["Users"].Rows[0]["role"];
+                    var isAdmin = (int)userDataSet.Tables["Users"].Rows[0]["role"];
 
-                    Console.WriteLine(isAdmin);
+                    if (isAdmin == 1) {
+                        var frm = new AdminForm();
+                        frm.Show();
+                    }
+                    //else if (isAdmin == 0)
+                    //{
+                    //    var frm = new UserForm;
+                    //    frm.Show();
+                    //}
                 }
-
-                //this.Hide();
+                this.Hide();
             }
             else
             {
