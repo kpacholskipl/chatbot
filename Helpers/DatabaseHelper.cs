@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections.Generic;
 
 namespace ChatBot.Helpers
 {
@@ -38,7 +37,7 @@ namespace ChatBot.Helpers
                     adapter.Fill(ds);
                 }
             }
-            catch(SqlException ex)
+            catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
             }
@@ -67,9 +66,9 @@ namespace ChatBot.Helpers
             {
                 using (SqlConnection conn = new SqlConnection(connectionString))
                 {
-                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = command };
+                    SqlDataAdapter adapter = new SqlDataAdapter { InsertCommand = command };
+                    //adapter.InsertCommand.ExecuteNonQuery();
                 }
-
             }
             catch (SqlException ex)
             {
@@ -78,84 +77,26 @@ namespace ChatBot.Helpers
             }
             return true;
         }
-
-
-
-
-        //public DataSet UpdateAdapter(string query())
-       // {
-
-//        }
-        /*
-           public static DataTable ExecuteQueryCommand(SqlCommand command)
-           {
-               DataTable dt = new();
-               try
-               {
-                   using SqlConnection connection = new(connectionString);
-                   command.Connection = connection;
-                   connection.Open();
-                   using SqlDataAdapter adapter = new(command);
-                   adapter.Fill(dt);
-               }
-               catch (Exception ex)
-               {
-                   Console.WriteLine(ex.Message);
-               }
-               return dt;
-           }
-
-           public static bool ExecuteNonQuery(string query)
-           {
-               bool result = true;
-
-               try
-               {
-                   using SqlConnection connection = new(connectionString);
-                   connection.Open();
-                   using SqlCommand command = new(query, connection);
-                   command.ExecuteNonQuery();
-               }
-               catch (Exception ex)
-               {
-                   Console.WriteLine(ex.Message);
-                   result = false;
-               }
-               return result;
-           }
-
-           public static bool ExecuteNonQueryCommand(SqlCommand command)
-           {
-               bool result = true;
-               try
-               {
-                   using SqlConnection connection = new(connectionString);
-                   command.Connection = connection;
-                   connection.Open();
-                   command.ExecuteNonQuery();
-               }
-               catch (Exception ex)
-               {
-                   Console.WriteLine(ex.Message);
-                   result = false;
-               }
-               return result;
-           }
-           public static int ExecuteScalarCommand(SqlCommand command)
-           {
-               try
-               {
-                   using SqlConnection connection = new(connectionString);
-                   command.Connection = connection;
-                   connection.Open();
-                   return Convert.ToInt32(command.ExecuteScalar());
-
-               }
-               catch (Exception ex)
-               {
-                   Console.WriteLine(ex.Message);
-               }
-               return 0;
-           }*/
+        public bool InsertNonCommand(SqlCommand command)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter {InsertCommand = command };
+                adapter.InsertCommand.Connection = conn;
+                adapter.InsertCommand.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return true;
+        }
     }
 }

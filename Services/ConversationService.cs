@@ -26,7 +26,7 @@ namespace ChatBot.Services
         {
             SqlCommand cmd = new SqlCommand("Insert into Conversations (subscription_id, email, password,role,name) VALUES (@subscriptionId,@email,@password,@role,@name)");
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation);
-            return new DatabaseHelper().ExecuteNonCommand(cmd);
+            return new DatabaseHelper().InsertNonCommand(cmd);
         }
         public bool UpdateConversation(Conversation Conversation)
         {
