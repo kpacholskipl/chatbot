@@ -28,5 +28,16 @@ namespace ChatBot.Services
             cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
             return new DatabaseHelper().ExecuteNonCommand(cmd);
         }
+        public bool UpdateUser(User user)
+        {
+            SqlCommand cmd = new SqlCommand("Update users SET subscription_id = @subscriptionId, email = @email, password = @password, role = @role,name = @name, api_key = @apiKey WHERE id = @id");
+            cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
+            cmd.Parameters.AddWithValue("id", user.Id);
+            return new DatabaseHelper().ExecuteNonCommand(cmd);
+        }
+        public bool DeleteUser (User user)
+        {
+            return new DatabaseHelper().ExecuteNonQuery($"Delete from users where id = {user.Id}");
+        }
     }
 }

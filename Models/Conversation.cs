@@ -15,7 +15,14 @@ namespace ChatBot.Models
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set;}
 
+        public List<ConversationItem> Items { get; set; }
 
-
+        public Conversation(int id, int userId, int categoryId, string title)
+        {
+            Id = id;
+            UserId = userId;
+            CategoryId = categoryId;
+            Title = title;
+        }
     }
 }
