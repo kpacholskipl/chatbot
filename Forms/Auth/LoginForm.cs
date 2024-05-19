@@ -1,4 +1,5 @@
-﻿using ChatBot.Services;
+﻿using ChatBot.Forms.Auth;
+using ChatBot.Services;
 using System;
 using System.Windows.Forms;
 
