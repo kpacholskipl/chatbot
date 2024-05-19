@@ -17,7 +17,8 @@ namespace ChatBot.Services
             return new DatabaseHelper().SelectQuery(query, "Subscriptions");
         }
 
-        public List<Subscription> GetSubsciprtions() => SubscriptionHelper.GetFromDataSet(GetSubsciprtionsData());
+        public List<Subscription> GetListSubsciprtions() => SubscriptionHelper.GetFromDataSet(GetSubsciprtionsData());
+        public DataSet GetSubsciprtions() =>GetSubsciprtionsData();
         public Subscription GetSubsciprtion(int id) => SubscriptionHelper.GetFromDataSet(GetSubsciprtionsData($"id = {id}")).FirstOrDefault();
     }
 }
