@@ -36,18 +36,20 @@
             // 
             // panelDesktop
             // 
-            this.panelDesktop.Location = new System.Drawing.Point(154, 2);
+            this.panelDesktop.Location = new System.Drawing.Point(150, 0);
             this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(646, 447);
+            this.panelDesktop.Size = new System.Drawing.Size(653, 450);
             this.panelDesktop.TabIndex = 0;
             // 
             // panelMenu
             // 
+            this.panelMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
             this.panelMenu.Controls.Add(this.buttonUsers);
-            this.panelMenu.Location = new System.Drawing.Point(2, 2);
+            this.panelMenu.Location = new System.Drawing.Point(0, 0);
             this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(146, 447);
+            this.panelMenu.Size = new System.Drawing.Size(150, 450);
             this.panelMenu.TabIndex = 1;
             // 
             // buttonUsers
@@ -58,7 +60,7 @@
             this.buttonUsers.ForeColor = System.Drawing.Color.White;
             this.buttonUsers.Location = new System.Drawing.Point(3, 3);
             this.buttonUsers.Name = "buttonUsers";
-            this.buttonUsers.Size = new System.Drawing.Size(140, 40);
+            this.buttonUsers.Size = new System.Drawing.Size(144, 40);
             this.buttonUsers.TabIndex = 0;
             this.buttonUsers.Text = "Users";
             this.buttonUsers.UseVisualStyleBackColor = true;
@@ -72,6 +74,7 @@
             this.Controls.Add(this.panelMenu);
             this.Controls.Add(this.panelDesktop);
             this.Name = "AdminForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AdminForm";
             this.panelMenu.ResumeLayout(false);
             this.ResumeLayout(false);

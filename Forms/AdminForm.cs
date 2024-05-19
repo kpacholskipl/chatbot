@@ -12,6 +12,8 @@ namespace ChatBot.Forms
 {
     public partial class AdminForm : Form
     {
+        private Form currentChildForm;
+
         public AdminForm()
         {
             InitializeComponent();
@@ -19,7 +21,20 @@ namespace ChatBot.Forms
 
         private void buttonUsers_Click(object sender, EventArgs e)
         {
+            OpenChildForm(new UsersForms());
+        }
+        private void OpenChildForm(Form childForm)
+        {
+            currentChildForm?.Close();
 
+            currentChildForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            panelDesktop.Controls.Add(childForm);
+            panelDesktop.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
         }
     }
 }
