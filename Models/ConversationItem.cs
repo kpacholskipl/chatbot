@@ -13,7 +13,12 @@ namespace ChatBot.Models
         public int Order { get; set; }
         public string Message { get; set; }
 
-       
+       public ConversationItem(int conversationId,  int order, string message)
+        {
+            ConversationId = conversationId;
+            Order = order;
+            Message = message;
+        }
 
 
     }

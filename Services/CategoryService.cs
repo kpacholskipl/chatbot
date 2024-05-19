@@ -19,7 +19,7 @@ namespace ChatBot.Services
 
         public List<Category> GetListCategories() => CategoryHelper.GetFromDataSet(GetCategoriesData());
         public DataSet GetCategories() => GetCategoriesData();
-        public Category GetCategorie(int id) => CategoryHelper.GetFromDataSet(GetCategoriesData($"id = {id}")).FirstOrDefault();
+        public Category GetCategory(int id) => CategoryHelper.GetFromDataSet(GetCategoriesData($"id = {id}")).FirstOrDefault();
 
         public bool CreateCategory(Category category)
         {
@@ -30,9 +30,9 @@ namespace ChatBot.Services
         {
             return new DatabaseHelper().UpdateQuery($"Update categories SET name = {category.Name} WHERE id = {category.Id}");
         }
-        public bool DeleteCategory(Category category)
+        public bool DeleteCategory(int id)
         {
-            return new DatabaseHelper().DeleteQuery($"Delete from categories where id = {category.Id}");
+            return new DatabaseHelper().DeleteQuery($"Delete from categories where id = {id}");
         }
     }
 }

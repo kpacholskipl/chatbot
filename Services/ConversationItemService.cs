@@ -7,34 +7,23 @@ using ChatBot.Models;
 
 namespace ChatBot.Services
 {
-    public class Categorieservice
+    public class ConversationItemService
     {
-        private DataSet GetCategoriesData(string where = "")
+        private DataSet GetConversationItems(string where = "")
         {
-            string query = "Select * from Categories";
+            string query = "Select * from conversation_items";
             if (where != "")
                 query += $" WHERE {where}";
-            return new DatabaseHelper().SelectQuery(query, "Categories");
+            return new DatabaseHelper().SelectQuery(query, "conversation_items");
         }
 
-        public List<Category> GetListCategories() => CategoryHelper.GetFromDataSet(GetCategoriesData());
-        public DataSet GetCategories() => GetCategoriesData();
-        public Category GetCategorie(int id) => CategoryHelper.GetFromDataSet(GetCategoriesData($"id = {id}")).FirstOrDefault();
+        public List<ConversationItem> GetListConversationItems() => ConversationItemHelper.GetFromDataSet(GetConversationItems());
+        
+        public DataSet GetConversationItems() => GetConversationItems();
+        public ConversationItem GetConversationItem(int id) => ConversationItemHelper.GetFromDataSet(GetConversationItems($"id = {id}")).FirstOrDefault();
 
-        public bool CreateCategory(Category category)
-        {
-            return new DatabaseHelper().InsertQuery($"Insert into categories (name) VALUES ({category.Name})");
-            
-        }
-        public bool UpdateCategory(Category category)
-        {
+        public List<ConversationItem> GetListConversationItemsByConversationId(int conversationId) => ConversationItemHelper.GetFromDataSet(GetConversationItems($"conversation_id = {conversationId}"));
 
-            return new DatabaseHelper().UpdateQuery($"Update categories SET name = {category.Name} WHERE id = {category.Id}");
-        }
-        public bool DeleteCategory(Category category)
-        {
-            return new DatabaseHelper().DeleteQuery($"Delete from categories where id = {category.Id}");
-        }
     }
 }
 

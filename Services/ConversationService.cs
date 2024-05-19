@@ -20,8 +20,16 @@ namespace ChatBot.Services
 
         public List<Conversation> GetListConversations() => ConversationHelper.GetFromDataSet(GetConversationsData());
         public DataSet GetConversations() => GetConversationsData();
-        public Conversation GetConversation(int id) => ConversationHelper.GetFromDataSet(GetConversationsData($"id = {id}")).FirstOrDefault();
-        public Conversation Login(string email, string password) => ConversationHelper.GetFromDataSet(GetConversationsData($"email = '{email}' AND password = '{password}'")).FirstOrDefault();
+        public Conversation GetConversation(int id)
+        {
+            Conversation conversation =  ConversationHelper.GetFromDataSet(GetConversationsData($"id = {id}")).FirstOrDefault();
+            if (conversation != null)
+            {
+                conversation.Items = new ConversationItemService().GetListConversationItemsByConversationId(conversation.Id);
+            }
+            return conversation;
+        }
+        /*public Conversation Login(string email, string password) => ConversationHelper.GetFromDataSet(GetConversationsData($"email = '{email}' AND password = '{password}'")).FirstOrDefault();
 
         public bool CreateConversation(Conversation Conversation)
         {
@@ -40,5 +48,6 @@ namespace ChatBot.Services
         {
             return new DatabaseHelper().DeleteQuery($"Delete from Conversations where id = {Conversation.Id}");
         }
+        */
     }
 }
