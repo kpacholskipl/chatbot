@@ -32,5 +32,15 @@ namespace ChatBot.Models
             Password = password;
             Name = name;
         }
+
+        public User(int id, int subscriptionId, string email, int role, string password, string name)
+        {
+            Id = id;
+            SubscriptionId = subscriptionId;
+            Email = email;
+            Role = role;
+            Password = password;
+            Name = name;
+        }
     }
 }

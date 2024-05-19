@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChatBot.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,93 @@ namespace ChatBot.Forms.Views.Admin
 {
     public partial class CategoriesForm : Form
     {
+        private readonly CategoryService _categoryService = new CategoryService();
+
         public CategoriesForm()
         {
             InitializeComponent();
+        }
+
+        private void CategoriesForm_Load(object sender, EventArgs e)
+        {
+            LoadCategories();
+
+            bindingNavigatorCategories.BindingSource = bindingSourceCategories;
+        }
+
+        private void LoadCategories()
+        {
+            DataSet dataSet = _categoryService.GetCategories();
+            bindingSourceCategories.DataSource = dataSet.Tables["categories"];
+            dataGridViewCategories.DataSource = bindingSourceCategories;
+            dataGridViewCategories.Columns[0].Visible = false;
+        }
+
+        private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.dataGridViewCategories.EndEdit();
+
+            if (dataGridViewCategories.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewCategories.SelectedRows[0];
+
+                if (selectedRow.IsNewRow || selectedRow.Index == dataGridViewCategories.Rows.Count - 1)
+                {
+                    MessageBox.Show("Select not empty row!");
+                    return;
+                }
+
+                var categoryID = selectedRow.Cells["id"].Value;
+
+                if (categoryID == null || string.IsNullOrEmpty(categoryID.ToString()))
+                {
+                    MessageBox.Show("You cannot delete a categoryID with an empty or null ID!");
+                    return;
+                }
+
+                _categoryService.DeleteCategory((int)categoryID);
+                LoadCategories();
+            }
+            else
+            {
+                MessageBox.Show("No row selected!");
+            }
+        }
+
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.dataGridViewCategories.EndEdit();
+
+            if (dataGridViewCategories.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewCategories.SelectedRows[0];
+
+                var name = (string)selectedRow.Cells["name"].Value;
+  
+                var category = new Models.Category(name);
+
+                _categoryService.CreateCategory(category);
+            }
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.dataGridViewCategories.EndEdit();
+
+            if (dataGridViewCategories.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewCategories.SelectedRows[0];
+
+                var name = (string)selectedRow.Cells["name"].Value;
+                var categoryID = (int)selectedRow.Cells["id"].Value;
+
+                var category = new Models.Category(categoryID, name);
+
+                _categoryService.UpdateCategory(category);
+            }
         }
     }
 }

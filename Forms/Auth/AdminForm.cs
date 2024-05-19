@@ -48,5 +48,10 @@ namespace ChatBot.Forms
             childForm.BringToFront();
             childForm.Show();
         }
+
+        private void AdminForm_Load(object sender, EventArgs e)
+        {
+            OpenChildForm(new UsersForm());
+        }
     }
 }

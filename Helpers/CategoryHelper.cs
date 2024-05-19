@@ -17,7 +17,10 @@ namespace ChatBot.Helpers
                 int id = Convert.ToInt32(row["id"]);
                 string name = row["name"].ToString();
 
-                Category Category = new Category(id, name);
+                Category Category = new Category(name)
+                {
+                    Id = id,
+                };
                 categories.Add(Category);
             }
 

@@ -142,7 +142,7 @@ namespace ChatBot.Helpers
             {
                 conn.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter { DeleteCommand = new SqlCommand(query, conn) };
-                adapter.UpdateCommand.ExecuteNonQuery();
+                adapter.DeleteCommand.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {
@@ -162,8 +162,8 @@ namespace ChatBot.Helpers
             {
                 conn.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter { DeleteCommand = command };
-                adapter.InsertCommand.Connection = conn;
-                adapter.InsertCommand.ExecuteNonQuery();
+                adapter.DeleteCommand.Connection = conn;
+                adapter.DeleteCommand.ExecuteNonQuery();
             }
             catch (SqlException ex)
             {

@@ -23,7 +23,7 @@ namespace ChatBot.Forms.Auth
         private void RegisterForm_Load(object sender, EventArgs e)
         {
             var subscriptionService = new SubscriptionService();
-            var subscriptions = subscriptionService.GetSubsciprtions();
+            var subscriptions = subscriptionService.GetListSubsciprtions();
 
             subscriptions.ForEach(subscription =>
             {

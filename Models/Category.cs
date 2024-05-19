@@ -12,7 +12,12 @@ namespace ChatBot.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public Category(int id, string name)
+        public Category(string name)
+        {
+            Name = name;
+        }
+
+        public Category(int id,string name)
         {
             Id = id;
             Name = name;
