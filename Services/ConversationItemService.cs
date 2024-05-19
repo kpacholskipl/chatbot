@@ -14,7 +14,7 @@ namespace ChatBot.Services
             string query = "Select * from Categories";
             if (where != "")
                 query += $" WHERE {where}";
-            return new DatabaseHelper().ExecuteQuery(query, "Categories");
+            return new DatabaseHelper().SelectQuery(query, "Categories");
         }
 
         public List<Category> GetCategories() => CategoryHelper.GetFromDataSet(GetCategoriesData());
@@ -22,17 +22,17 @@ namespace ChatBot.Services
 
         public bool CreateCategory(Category category)
         {
-            return new DatabaseHelper().ExecuteNonQuery($"Insert into categories (name) VALUES ({category.Name})");
+            return new DatabaseHelper().InsertQuery($"Insert into categories (name) VALUES ({category.Name})");
             
         }
         public bool UpdateCategory(Category category)
         {
 
-            return new DatabaseHelper().ExecuteNonQuery($"Update categories SET name = {category.Name} WHERE id = {category.Id}");
+            return new DatabaseHelper().UpdateQuery($"Update categories SET name = {category.Name} WHERE id = {category.Id}");
         }
         public bool DeleteCategory(Category category)
         {
-            return new DatabaseHelper().ExecuteNonQuery($"Delete from categories where id = {category.Id}");
+            return new DatabaseHelper().DeleteQuery($"Delete from categories where id = {category.Id}");
         }
     }
 }

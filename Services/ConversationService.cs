@@ -15,7 +15,7 @@ namespace ChatBot.Services
             string query = "Select * from Conversations";
             if (where != "")
                 query += $" WHERE {where}";
-            return new DatabaseHelper().ExecuteQuery(query, "Conversations");
+            return new DatabaseHelper().SelectQuery(query, "Conversations");
         }
 
         public List<Conversation> GetConversations() => ConversationHelper.GetFromDataSet(GetConversationsData());
@@ -26,18 +26,18 @@ namespace ChatBot.Services
         {
             SqlCommand cmd = new SqlCommand("Insert into Conversations (subscription_id, email, password,role,name) VALUES (@subscriptionId,@email,@password,@role,@name)");
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation);
-            return new DatabaseHelper().InsertNonCommand(cmd);
+            return new DatabaseHelper().InsertCommand(cmd);
         }
         public bool UpdateConversation(Conversation Conversation)
         {
             SqlCommand cmd = new SqlCommand("Update Conversations SET subscription_id = @subscriptionId, email = @email, password = @password, role = @role,name = @name, api_key = @apiKey WHERE id = @id");
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation);
             cmd.Parameters.AddWithValue("id", Conversation.Id);
-            return new DatabaseHelper().ExecuteNonCommand(cmd);
+            return new DatabaseHelper().UpdateCommand(cmd);
         }
         public bool DeleteConversation (Conversation Conversation)
         {
-            return new DatabaseHelper().ExecuteNonQuery($"Delete from Conversations where id = {Conversation.Id}");
+            return new DatabaseHelper().DeleteQuery($"Delete from Conversations where id = {Conversation.Id}");
         }
     }
 }

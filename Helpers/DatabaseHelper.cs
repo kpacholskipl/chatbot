@@ -8,82 +8,162 @@ namespace ChatBot.Helpers
     {
         protected readonly string connectionString = @"Data Source=SQL6032.site4now.net;Initial Catalog=db_aa8e53_chat;User Id=db_aa8e53_chat_admin;Password=Test1234";
 
-        public DataSet ExecuteQuery(string query, string table)
+        public DataSet SelectQuery(string query, string table)
         {
+            SqlConnection conn = new SqlConnection(connectionString);
             DataSet ds = new DataSet();
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = new SqlCommand(query, conn) };
-                    adapter.Fill(ds, table);
-                }
-
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = new SqlCommand(query, conn) };
+                adapter.InsertCommand.ExecuteNonQuery();
+                adapter.Fill(ds, table);
             }
             catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            return ds;
+            finally
+            {
+                conn.Close();
+            }
+            return ds;      
         }
-        public DataSet ExecuteCommand(SqlCommand command)
+
+        public DataSet SelectCommand(SqlCommand command, string table)
         {
+            SqlConnection conn = new SqlConnection(connectionString);
             DataSet ds = new DataSet();
             try
             {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = command };
-                    adapter.Fill(ds);
-                }
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = command };
+                adapter.InsertCommand.Connection = conn;
+                adapter.InsertCommand.ExecuteNonQuery();
+                adapter.Fill(ds, table);
             }
             catch (SqlException ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
             }
             return ds;
         }
-        public bool ExecuteNonQuery(string query)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = new SqlCommand(query, conn) };
-                }
-
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            return true;
-        }
-        public bool ExecuteNonCommand(SqlCommand command)
-        {
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(connectionString))
-                {
-                    SqlDataAdapter adapter = new SqlDataAdapter { InsertCommand = command };
-                    //adapter.InsertCommand.ExecuteNonQuery();
-                }
-            }
-            catch (SqlException ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            return true;
-        }
-        public bool InsertNonCommand(SqlCommand command)
+        public bool InsertQuery(string query)
         {
             SqlConnection conn = new SqlConnection(connectionString);
             try
             {
                 conn.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter {InsertCommand = command };
+                SqlDataAdapter adapter = new SqlDataAdapter { InsertCommand = new SqlCommand(query, conn) };
+                adapter.InsertCommand.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return true;        
+        }
+
+        public bool InsertCommand(SqlCommand command)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter { InsertCommand = command };
+                adapter.InsertCommand.Connection = conn;
+                adapter.InsertCommand.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return true;
+        }
+        public bool UpdateQuery(string query)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter { UpdateCommand = new SqlCommand(query, conn) };
+                adapter.UpdateCommand.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return true;
+        }
+
+
+        public bool UpdateCommand(SqlCommand command)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter { UpdateCommand = command };
+                adapter.UpdateCommand.Connection = conn;
+                adapter.UpdateCommand.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return true;
+        }
+        public bool DeleteQuery(string query)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter { DeleteCommand = new SqlCommand(query, conn) };
+                adapter.UpdateCommand.ExecuteNonQuery();
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return true;
+        }
+        public bool DeleteCommand(SqlCommand command)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter { DeleteCommand = command };
                 adapter.InsertCommand.Connection = conn;
                 adapter.InsertCommand.ExecuteNonQuery();
             }

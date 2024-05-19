@@ -15,7 +15,7 @@ namespace ChatBot.Services
             string query = "Select * from users";
             if (where != "")
                 query += $" WHERE {where}";
-            return new DatabaseHelper().ExecuteQuery(query, "Users");
+            return new DatabaseHelper().SelectQuery(query, "Users");
         }
 
         public List<User> GetUsers() => UserHelper.GetFromDataSet(GetUsersData());
@@ -26,7 +26,7 @@ namespace ChatBot.Services
         {
             SqlCommand cmd = new SqlCommand("Insert into users (subscription_id, email, password,role,name) VALUES (@subscriptionId,@email,@password,@role,@name)");
             cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
-            return new DatabaseHelper().InsertNonCommand(cmd);
+            return new DatabaseHelper().InsertCommand(cmd);
         }
         public bool UpdateUser(User user)
         {
@@ -35,11 +35,11 @@ namespace ChatBot.Services
             cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
             cmd.Parameters.AddWithValue("id", user.Id);
             cmd.Parameters.AddWithValue("@apiKey", user.ApiKey != null ? user.ApiKey : null);
-            return new DatabaseHelper().InsertNonCommand(cmd);
+            return new DatabaseHelper().UpdateCommand(cmd);
         }
         public bool DeleteUser (User user)
         {
-            return new DatabaseHelper().ExecuteNonQuery($"Delete from users where id = {user.Id}");
+            return new DatabaseHelper().DeleteQuery($"Delete from users where id = {user.Id}");
         }
     }
 }

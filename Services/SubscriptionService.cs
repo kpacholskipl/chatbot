@@ -14,7 +14,7 @@ namespace ChatBot.Services
             string query = "Select * from subscriptions";
             if (where != "")
                 query += $" WHERE {where}";
-            return new DatabaseHelper().ExecuteQuery(query, "Subscriptions");
+            return new DatabaseHelper().SelectQuery(query, "Subscriptions");
         }
 
         public List<Subscription> GetSubsciprtions() => SubscriptionHelper.GetFromDataSet(GetSubsciprtionsData());
