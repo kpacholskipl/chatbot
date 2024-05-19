@@ -20,33 +20,35 @@ namespace ChatBot.Forms
 
         private void buttonLogin_Click(object sender, EventArgs e)
         {
-            this.loginAction();
+            this.LoginAction();
         }
 
-        private void loginAction()
+        private void LoginAction()
         {
             string email = textBoxEmail.Text ?? "";
             string password = textBoxPassword.Text ?? "";
 
             if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
             {
+               
                 var userService = new UserService();
-                var userDataSet = userService.Login(email, password);
+                var user = userService.Login(email, password);
 
-                if (userDataSet != null)
+
+                if (user != null)
                 {
-                    //var isAdmin = (int)userDataSet.Tables["Users"].Rows[0]["role"];
-
-                    //if (isAdmin == 1) {
-                    //    var frm = new AdminForm();
-                    //    frm.Show();
-                    //}
-                    Console.WriteLine("test");
-                    //else if (isAdmin == 0)
-                    //{
-                    //    var frm = new UserForm;
-                    //    frm.Show();
-                    //}
+                    if (user.Role == 1)
+                    {
+                        var frm = new AdminForm();
+                        frm.Show();
+                        frm.FormClosed += (s, args) => this.Close();
+                    }
+                    else if (user.Role == 0)
+                    {
+                        var frm = new UserForm();
+                        frm.Show();
+                        frm.FormClosed += (s, args) => this.Close();
+                    }
                 }
                 this.Hide();
             }

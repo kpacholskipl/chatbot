@@ -14,14 +14,14 @@ namespace ChatBot.Helpers
 
             foreach (DataRow row in ds.Tables["Users"].Rows)
             {
-                int id = Convert.ToInt32(row["Id"]);
-                int subscriptionId = Convert.ToInt32(row["SubscriptionId"]);
-                string email = row["Email"].ToString();
-                int role = Convert.ToInt32(row["Role"]);
-                string password = row["Password"].ToString();
-                string createdAt = row["CreatedAt"].ToString();
-                string updatedAt = row["UpdatedAt"].ToString();
-                string name = row["Name"].ToString();
+                int id = Convert.ToInt32(row["id"]);
+                int subscriptionId = Convert.ToInt32(row["subscription_id"]);
+                string email = row["email"].ToString();
+                int role = Convert.ToInt32(row["role"]);
+                string password = row["password"].ToString();
+                string createdAt = row["created_at"].ToString();
+                string updatedAt = row["updated_at"].ToString();
+                string name = row["name"].ToString();
 
                 User user = new User(id, subscriptionId, email, role, password, createdAt, updatedAt, name);
                 users.Add(user);

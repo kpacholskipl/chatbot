@@ -1,4 +1,4 @@
-﻿using ChatBot.Forms.Views.Admin;
+﻿using ChatBot.Forms.Views.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,30 +11,29 @@ using System.Windows.Forms;
 
 namespace ChatBot.Forms
 {
-    public partial class AdminForm : Form
+    public partial class UserForm : Form
     {
         private Form currentChildForm;
 
-        public AdminForm()
+        public UserForm()
         {
             InitializeComponent();
         }
 
-        private void buttonUsers_Click(object sender, EventArgs e)
+        private void buttonChat_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new UsersForm());
+            OpenChildForm(new ChatForm());
         }
 
-        private void buttonCategories_Click(object sender, EventArgs e)
+        private void buttonHistory_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new CategoriesForm());
+            OpenChildForm(new HistoryForm());
         }
 
-        private void buttonSubscriptions_Click(object sender, EventArgs e)
+        private void buttonMyAccount_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new SubscriptionsForm());
+            OpenChildForm(new MyAccountForm());
         }
-
         private void OpenChildForm(Form childForm)
         {
             currentChildForm?.Close();

@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ChatBot.Forms
+namespace ChatBot.Forms.Views.Admin
 {
-    public partial class UsersForms : Form
+    public partial class CategoriesForm : Form
     {
-        public UsersForms()
+        public CategoriesForm()
         {
             InitializeComponent();
         }
