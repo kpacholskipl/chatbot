@@ -23,12 +23,17 @@ namespace ChatBot.Services
 
         public bool CreateCategory(Category category)
         {
-            return new DatabaseHelper().InsertQuery($"Insert into categories (name) VALUES ({category.Name})");
+            SqlCommand cmd = new SqlCommand("Insert into categories (name) VALUES (@name)");
+            cmd.Parameters.AddWithValue("@name", category.Name);
+            return new DatabaseHelper().InsertCommand(cmd);
             
         }
         public bool UpdateCategory(Category category)
         {
-            return new DatabaseHelper().UpdateQuery($"Update categories SET name = {category.Name} WHERE id = {category.Id}");
+            SqlCommand cmd = new SqlCommand("Update categories SET name = @name WHERE id = @id");
+            cmd.Parameters.AddWithValue("@id", category.Id);
+            cmd.Parameters.AddWithValue("@name", category.Name);
+            return new DatabaseHelper().UpdateCommand(cmd);
         }
         public bool DeleteCategory(int id)
         {

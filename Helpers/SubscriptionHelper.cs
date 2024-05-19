@@ -17,20 +17,21 @@ namespace ChatBot.Helpers
                 int id = Convert.ToInt32(row["id"]);
                 string name = row["name"].ToString();
                 decimal role = Convert.ToDecimal(row["price"]);
+                Subscription.PeriodTypes period = (Subscription.PeriodTypes)row["period"];
+                Subscription.ModelTypes model = (Subscription.ModelTypes)row["model"];
 
-                Subscription Subscription = new Subscription(id, name, role);
+                Subscription Subscription = new Subscription(id, name, role, period, model);
                 Subscriptions.Add(Subscription);
             }
 
             return Subscriptions;
         }
-        public static SqlCommand AddParametrsToSqlCommand(SqlCommand cmd, Subscription Subscription)
+        public static SqlCommand AddParametrsToSqlCommand(SqlCommand cmd, Subscription subscription)
         {
-            //cmd.Parameters.AddWithValue("@subscriptionId", Subscription.SubscriptionId);
-            //cmd.Parameters.AddWithValue("@email", Subscription.Email);
-            //cmd.Parameters.AddWithValue("@password", Subscription.Password);
-            //cmd.Parameters.AddWithValue("@role", Subscription.Name);
-            //cmd.Parameters.AddWithValue("@name", Subscription.Name);
+            cmd.Parameters.AddWithValue("@name", subscription.Name);
+            cmd.Parameters.AddWithValue("@period", subscription.Period);
+            cmd.Parameters.AddWithValue("@model", subscription.Model);
+            cmd.Parameters.AddWithValue("@price", subscription.Price);
 
             return cmd;
         }

@@ -12,22 +12,26 @@ namespace ChatBot.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
 
-        public enum Period
+        public enum PeriodTypes
         {
             Month,
             Year
         }
-        public enum Model
+        public enum ModelTypes
         {
             Model_3_5,
             Model_3_5_Turbo,
             Model_4
         }
-        public Subscription(int id, string name, decimal price)
+        public PeriodTypes Period { get; set; }
+        public ModelTypes Model { get; set; }
+        public Subscription(int id, string name, decimal price, PeriodTypes period, ModelTypes model)
         {
             Id = id;
             Name = name;
             Price = price;
+            Period = period;
+            Model = model;      
         }
     }
 }
