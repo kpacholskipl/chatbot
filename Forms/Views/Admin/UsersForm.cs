@@ -28,9 +28,9 @@ namespace ChatBot.Forms.Views.Admin
 
         private void LoadUsers()
         {
-            DataSet dataSet = _userService.GetUsers();
-            bindingSourceUsers.DataSource = dataSet.Tables["cos tam"];
-            dataGridViewUsers.DataSource = bindingSourceUsers;
+            //DataSet dataSet = _userService.GetUsers();
+            //bindingSourceUsers.DataSource = dataSet.Tables["cos tam"];
+            //dataGridViewUsers.DataSource = bindingSourceUsers;
         }
     }
 }
