@@ -30,9 +30,9 @@ namespace ChatBot.Services
         {
             return new DatabaseHelper().UpdateQuery($"Update categories SET name = {category.Name} WHERE id = {category.Id}");
         }
-        public bool DeleteCategory(Category category)
+        public bool DeleteCategory(int id)
         {
-            return new DatabaseHelper().DeleteQuery($"Delete from categories where id = {category.Id}");
+            return new DatabaseHelper().DeleteQuery($"Delete from categories where id = {id}");
         }
     }
 }

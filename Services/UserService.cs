@@ -38,9 +38,9 @@ namespace ChatBot.Services
             cmd.Parameters.AddWithValue("@apiKey", user.ApiKey != null ? user.ApiKey : null);
             return new DatabaseHelper().UpdateCommand(cmd);
         }
-        public bool DeleteUser (User user)
+        public bool DeleteUser (int id)
         {
-            return new DatabaseHelper().DeleteQuery($"Delete from users where id = {user.Id}");
+            return new DatabaseHelper().DeleteQuery($"Delete from users where id = {id}");
         }
     }
 }
