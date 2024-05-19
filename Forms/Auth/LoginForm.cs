@@ -1,4 +1,5 @@
-﻿using ChatBot.Services;
+﻿using ChatBot.Forms.Auth;
+using ChatBot.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -68,6 +69,14 @@ namespace ChatBot.Forms
         {
             textBoxEmail.Text = "user1@example.com";
             textBoxPassword.Text = "password1";
+        }
+
+        private void buttonCreateAccount_Click(object sender, EventArgs e)
+        {
+            var frm = new RegisterForm();
+            frm.Show();
+            frm.FormClosed += (s, args) => this.Close();
+            this.Hide();
         }
     }
 }

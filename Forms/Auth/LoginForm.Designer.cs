@@ -36,6 +36,7 @@
             this.buttonLogin = new System.Windows.Forms.Button();
             this.buttonFillAdmin = new System.Windows.Forms.Button();
             this.buttonFillUser = new System.Windows.Forms.Button();
+            this.buttonCreateAccount = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // labelWelcome
@@ -94,7 +95,7 @@
             // 
             // buttonFillAdmin
             // 
-            this.buttonFillAdmin.Location = new System.Drawing.Point(44, 310);
+            this.buttonFillAdmin.Location = new System.Drawing.Point(44, 378);
             this.buttonFillAdmin.Name = "buttonFillAdmin";
             this.buttonFillAdmin.Size = new System.Drawing.Size(75, 23);
             this.buttonFillAdmin.TabIndex = 6;
@@ -104,7 +105,7 @@
             // 
             // buttonFillUser
             // 
-            this.buttonFillUser.Location = new System.Drawing.Point(196, 310);
+            this.buttonFillUser.Location = new System.Drawing.Point(196, 378);
             this.buttonFillUser.Name = "buttonFillUser";
             this.buttonFillUser.Size = new System.Drawing.Size(75, 23);
             this.buttonFillUser.TabIndex = 7;
@@ -112,11 +113,23 @@
             this.buttonFillUser.UseVisualStyleBackColor = true;
             this.buttonFillUser.Click += new System.EventHandler(this.buttonFillUser_Click);
             // 
+            // buttonCreateAccount
+            // 
+            this.buttonCreateAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonCreateAccount.Location = new System.Drawing.Point(44, 311);
+            this.buttonCreateAccount.Name = "buttonCreateAccount";
+            this.buttonCreateAccount.Size = new System.Drawing.Size(227, 46);
+            this.buttonCreateAccount.TabIndex = 8;
+            this.buttonCreateAccount.Text = "Create account";
+            this.buttonCreateAccount.UseVisualStyleBackColor = true;
+            this.buttonCreateAccount.Click += new System.EventHandler(this.buttonCreateAccount_Click);
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(319, 345);
+            this.ClientSize = new System.Drawing.Size(319, 433);
+            this.Controls.Add(this.buttonCreateAccount);
             this.Controls.Add(this.buttonFillUser);
             this.Controls.Add(this.buttonFillAdmin);
             this.Controls.Add(this.buttonLogin);
@@ -143,5 +156,6 @@
         private System.Windows.Forms.Button buttonLogin;
         private System.Windows.Forms.Button buttonFillAdmin;
         private System.Windows.Forms.Button buttonFillUser;
+        private System.Windows.Forms.Button buttonCreateAccount;
     }
 }
