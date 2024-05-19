@@ -7,7 +7,7 @@ using ChatBot.Models;
 
 namespace ChatBot.Services
 {
-    public class CategoryService
+    public class Categorieservice
     {
         private DataSet GetCategoriesData(string where = "")
         {
