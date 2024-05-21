@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -242,6 +243,38 @@ namespace ChatBot.Forms.Views.Admin
             }
 
             return true;
+        }
+
+        private void buttonHashPassword_Click(object sender, EventArgs e)
+        {
+            string password = textBoxPasswordToHash.Text;
+
+            if (string.IsNullOrEmpty(password) || password.Length < 6)
+            {
+                MessageBox.Show("Password must be at least 6 characters long.");
+                return;
+            }
+
+            string hashedPassword = HashPassword(password);
+
+            Clipboard.SetText(hashedPassword);
+
+            MessageBox.Show("Hashed password was copied into clipboard");
+        }
+
+        static string HashPassword(string password)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    builder.Append(bytes[i].ToString("x2"));
+                }
+                return builder.ToString();
+            }
         }
     }
 }
