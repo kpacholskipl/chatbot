@@ -1,4 +1,5 @@
 ﻿using ChatBot.Forms.Views.User;
+using ChatBot.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,13 @@ namespace ChatBot.Forms
 {
     public partial class UserForm : Form
     {
+        private Models.User _loggedUser;
         private Form currentChildForm;
 
-        public UserForm()
+        public UserForm(Models.User user)
         {
             InitializeComponent();
+            _loggedUser = user;
         }
 
         private void buttonChat_Click(object sender, EventArgs e)
@@ -32,7 +35,7 @@ namespace ChatBot.Forms
 
         private void buttonMyAccount_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new MyAccountForm());
+            OpenChildForm(new MyAccountForm(_loggedUser));
         }
         private void OpenChildForm(Form childForm)
         {

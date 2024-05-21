@@ -39,7 +39,7 @@ namespace ChatBot.Forms
                     }
                     else if (user.Role == 0)
                     {
-                        var frm = new UserForm();
+                        var frm = new UserForm(user);
                         frm.Show();
                         frm.FormClosed += (s, args) => this.Close();
                     }

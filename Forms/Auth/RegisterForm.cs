@@ -78,10 +78,10 @@ namespace ChatBot.Forms.Auth
 
             if (isAccountCreated)
             {
-                var frm = new UserForm();
-                frm.Show();
-                frm.FormClosed += (s, args) => this.Close();
-                this.Hide();
+                //var frm = new UserForm();
+                //frm.Show();
+                //frm.FormClosed += (s, args) => this.Close();
+                //this.Hide();
             }
             else
             {
