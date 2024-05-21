@@ -1,4 +1,5 @@
-﻿using ChatBot.Services;
+﻿using ChatBot.Models;
+using ChatBot.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,9 +23,15 @@ namespace ChatBot.Forms.Views.Admin
 
         private void CategoriesForm_Load(object sender, EventArgs e)
         {
+            PrepareDataGridView();
             LoadCategories();
 
             bindingNavigatorCategories.BindingSource = bindingSourceCategories;
+        }
+
+        private void PrepareDataGridView()
+        {
+            dataGridViewCategories.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Name", DataPropertyName = "name" });
         }
 
         private void LoadCategories()
@@ -76,7 +83,7 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewCategories.SelectedRows[0];
 
-                var name = (string)selectedRow.Cells["name"].Value;
+                var name = (string)selectedRow.Cells[1].Value;
   
                 var category = new Models.Category(name);
 
@@ -93,8 +100,8 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewCategories.SelectedRows[0];
 
-                var name = (string)selectedRow.Cells["name"].Value;
-                var categoryID = (int)selectedRow.Cells["id"].Value;
+                var name = (string)selectedRow.Cells[1].Value;
+                var categoryID = (int)selectedRow.Cells[0].Value;
 
                 var category = new Models.Category(categoryID, name);
 
