@@ -25,9 +25,8 @@ namespace ChatBot.Services
 
         public bool CreateUser(User user)
         {
-            SqlCommand cmd = new SqlCommand("Insert into users (subscription_id, email, password,role,name,api_key) VALUES (@subscriptionId,@email,@password,@role,@name,@apiKey)");
+            SqlCommand cmd = new SqlCommand("Insert into users (subscription_id, email, password, role, name, api_key) VALUES (@subscriptionId, @email, @password, @role, @name, @apiKey)");
             cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
-            cmd.Parameters.AddWithValue("@apiKey", user?.ApiKey ?? "");
             return new DatabaseHelper().InsertCommand(cmd);
         }
         public bool UpdateUser(User user)
@@ -35,7 +34,6 @@ namespace ChatBot.Services
             SqlCommand cmd = new SqlCommand("Update users SET subscription_id = @subscriptionId, email = @email, password = @password, role = @role,name = @name, api_key = @apiKey WHERE id = @id");
             cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
             cmd.Parameters.AddWithValue("@id", user.Id);
-            cmd.Parameters.AddWithValue("@apiKey", user.ApiKey ?? "");
             return new DatabaseHelper().UpdateCommand(cmd);
         }
         public bool DeleteUser (int id)

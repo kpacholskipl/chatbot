@@ -44,6 +44,7 @@ namespace ChatBot.Helpers
             cmd.Parameters.AddWithValue("@password", user.Password);
             cmd.Parameters.AddWithValue("@role", user.Role);
             cmd.Parameters.AddWithValue("@name", user.Name);
+            cmd.Parameters.AddWithValue("@apiKey", user.ApiKey ?? string.Empty);
 
             return cmd;
         }
