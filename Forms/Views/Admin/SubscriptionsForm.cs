@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ChatBot.Models.Subscription;
 
 namespace ChatBot.Forms.Views.Admin
 {
@@ -22,9 +23,35 @@ namespace ChatBot.Forms.Views.Admin
 
         private void SubscriptionsForm_Load(object sender, EventArgs e)
         {
+            PrepareDataGridView();
             LoadSubscriptions();
 
             bindingNavigatorSubscriptions.BindingSource = bindingSourceSubscriptions;
+        }
+        private void PrepareDataGridView()
+        {
+            var periodTypes = Enum.GetValues(typeof(PeriodTypes)).Cast<PeriodTypes>().Select((e, index) => new { Id = index, Name = e.ToString() }).ToList();
+
+            DataGridViewComboBoxColumn periodTypeColumn = new DataGridViewComboBoxColumn();
+            periodTypeColumn.HeaderText = "Period";
+            periodTypeColumn.DataPropertyName = "period";
+            periodTypeColumn.DataSource = periodTypes;
+            periodTypeColumn.DisplayMember = "Name";
+            periodTypeColumn.ValueMember = "Id";
+
+            var modelTypes = Enum.GetValues(typeof(ModelTypes)).Cast<ModelTypes>().Select((e, index) => new { Id = index, Name = e.ToString() }).ToList();
+
+            DataGridViewComboBoxColumn modelTypeColumn = new DataGridViewComboBoxColumn();
+            modelTypeColumn.HeaderText = "Model";
+            modelTypeColumn.DataPropertyName = "model";
+            modelTypeColumn.DataSource = modelTypes;
+            modelTypeColumn.DisplayMember = "Name";
+            modelTypeColumn.ValueMember = "Id";
+
+            dataGridViewSubscriptions.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Name", DataPropertyName = "name" });
+            dataGridViewSubscriptions.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Price", DataPropertyName = "price" });
+            dataGridViewSubscriptions.Columns.Add(periodTypeColumn);
+            dataGridViewSubscriptions.Columns.Add(modelTypeColumn);
         }
 
         private void LoadSubscriptions()
