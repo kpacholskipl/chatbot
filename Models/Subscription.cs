@@ -33,5 +33,13 @@ namespace ChatBot.Models
             Period = period;
             Model = model;      
         }
+
+        public Subscription(string name, decimal price, PeriodTypes period, ModelTypes model)
+        {
+            Name = name;
+            Price = price;
+            Period = period;
+            Model = model;
+        }
     }
 }

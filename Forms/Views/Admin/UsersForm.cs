@@ -32,6 +32,8 @@ namespace ChatBot.Forms.Views.Admin
             bindingSourceUsers.DataSource = dataSet.Tables["users"];
             dataGridViewUsers.DataSource = bindingSourceUsers;
             dataGridViewUsers.Columns[0].Visible = false;
+            dataGridViewUsers.Columns[5].Visible = false;
+            dataGridViewUsers.Columns[6].Visible = false;
         }
 
         private void bindingNavigatorDeleteItem_Click(object sender, EventArgs e)
@@ -80,9 +82,10 @@ namespace ChatBot.Forms.Views.Admin
                 var name = (string)selectedRow.Cells["name"].Value;
                 var role = (int)selectedRow.Cells["role"].Value;
                 var subscriptionId = (int)selectedRow.Cells["subscription_id"].Value;
+                var apiKey = selectedRow.Cells["api_key"]?.Value?.ToString() ?? "";
                 var userID = (int)selectedRow.Cells["id"].Value;
 
-                var user = new Models.User(userID, subscriptionId, email, role, password, name);
+                var user = new Models.User(userID, subscriptionId, email, role, password, name, apiKey);
 
                 _userService.UpdateUser(user);
             }
@@ -101,9 +104,10 @@ namespace ChatBot.Forms.Views.Admin
                 var password = (string)selectedRow.Cells["password"].Value;
                 var name = (string)selectedRow.Cells["name"].Value;
                 var role = (int)selectedRow.Cells["role"].Value;
+                var apiKey = selectedRow.Cells["api_key"]?.Value?.ToString() ?? "";
                 var subscriptionId = (int)selectedRow.Cells["subscription_id"].Value;
 
-                var user = new Models.User(subscriptionId, email, role, password, name);
+                var user = new Models.User(subscriptionId, email, role, password, name, apiKey);
 
                 _userService.CreateUser(user);
             }

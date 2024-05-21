@@ -1,4 +1,5 @@
-﻿using ChatBot.Services;
+﻿using ChatBot.Models;
+using ChatBot.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -57,12 +58,57 @@ namespace ChatBot.Forms.Views.Admin
                     return;
                 }
 
-                //_subscriptionService.de((int)userID);
+                _subscriptionService.DeleteSubscription((int)subscriptionID);
                 LoadSubscriptions();
             }
             else
             {
                 MessageBox.Show("No row selected!");
+            }
+        }
+
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.dataGridViewSubscriptions.EndEdit();
+
+            if (dataGridViewSubscriptions.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewSubscriptions.SelectedRows[0];
+
+                var name = (string)selectedRow.Cells["name"].Value;
+                var price = (decimal)selectedRow.Cells["price"].Value;
+                var period = (string)selectedRow.Cells["period"].Value;
+                Subscription.PeriodTypes periodType = (Subscription.PeriodTypes)Enum.Parse(typeof(Subscription.PeriodTypes), period);
+                var model = (string)selectedRow.Cells["model"].Value;
+                Subscription.ModelTypes modelType = (Subscription.ModelTypes)Enum.Parse(typeof(Subscription.ModelTypes), model);
+                var subscriptionID = (int)selectedRow.Cells["id"].Value;
+
+                var subscription = new Subscription(subscriptionID, name, price, periodType, modelType);
+
+                _subscriptionService.UpdateSubscription(subscription);
+            }
+        }
+
+        private void bindingNavigatorAddNewItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.dataGridViewSubscriptions.EndEdit();
+
+            if (dataGridViewSubscriptions.SelectedRows.Count > 0)
+            {
+                DataGridViewRow selectedRow = dataGridViewSubscriptions.SelectedRows[0];
+
+                var name = (string)selectedRow.Cells["name"].Value;
+                var price = (decimal)selectedRow.Cells["price"].Value;
+                var period = (string)selectedRow.Cells["period"].Value;
+                Subscription.PeriodTypes periodType = (Subscription.PeriodTypes)Enum.Parse(typeof(Subscription.PeriodTypes), period);
+                var model = (string)selectedRow.Cells["model"].Value;
+                Subscription.ModelTypes modelType = (Subscription.ModelTypes)Enum.Parse(typeof(Subscription.ModelTypes), model);
+
+                var subscription = new Subscription(name, price, periodType, modelType);
+
+                _subscriptionService.UpdateSubscription(subscription);
             }
         }
     }
