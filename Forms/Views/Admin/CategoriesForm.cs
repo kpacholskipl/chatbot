@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace ChatBot.Forms.Views.Admin
 {
@@ -82,10 +83,14 @@ namespace ChatBot.Forms.Views.Admin
             if (dataGridViewCategories.SelectedRows.Count > 0)
             {
                 DataGridViewRow selectedRow = dataGridViewCategories.SelectedRows[0];
+                var name = selectedRow.Cells[1]?.Value?.ToString() ?? "";
 
-                var name = (string)selectedRow.Cells[1].Value;
-  
-                var category = new Models.Category(name);
+                if (!ValidateFields(name))
+                {
+                    return;
+                }
+
+                var category = new Category(name);
 
                 _categoryService.CreateCategory(category);
             }
@@ -100,13 +105,41 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewCategories.SelectedRows[0];
 
-                var name = (string)selectedRow.Cells[1].Value;
-                var categoryID = (int)selectedRow.Cells[0].Value;
+                if (selectedRow.IsNewRow || selectedRow.Index == dataGridViewCategories.Rows.Count - 1)
+                {
+                    MessageBox.Show("Select not empty row!");
+                    return;
+                }
 
-                var category = new Models.Category(categoryID, name);
+                var categoryID = selectedRow.Cells[0].Value;
+
+                if (categoryID == null || string.IsNullOrEmpty(categoryID.ToString()))
+                {
+                    MessageBox.Show("You cannot update, first add this to data base");
+                    return;
+                }
+                var name = selectedRow.Cells[1]?.Value?.ToString() ?? "";
+
+                if (!ValidateFields(name))
+                {
+                    return;
+                }
+
+                var category = new Category((int)categoryID, name);
 
                 _categoryService.UpdateCategory(category);
             }
+        }
+
+        private bool ValidateFields(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("Please enter a name.");
+                return false;
+            }
+
+            return true;
         }
     }
 }

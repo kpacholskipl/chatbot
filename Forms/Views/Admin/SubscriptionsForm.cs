@@ -103,17 +103,49 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewSubscriptions.SelectedRows[0];
 
-                var name = (string)selectedRow.Cells[1].Value;
-                var price = (decimal)selectedRow.Cells[2].Value;
-                var period = (string)selectedRow.Cells[3].Value;
-                Subscription.PeriodTypes periodType = (Subscription.PeriodTypes)Enum.Parse(typeof(Subscription.PeriodTypes), period);
-                var model = (string)selectedRow.Cells[4].Value;
-                Subscription.ModelTypes modelType = (Subscription.ModelTypes)Enum.Parse(typeof(Subscription.ModelTypes), model);
-                var subscriptionID = (int)selectedRow.Cells[0].Value;
+                if (selectedRow.IsNewRow || selectedRow.Index == dataGridViewSubscriptions.Rows.Count - 1)
+                {
+                    MessageBox.Show("Select not empty row!");
+                    return;
+                }
 
-                var subscription = new Subscription(subscriptionID, name, price, periodType, modelType);
+                var name = selectedRow.Cells[1].Value?.ToString();
+                decimal price;
+                if (!decimal.TryParse(selectedRow.Cells[2].Value?.ToString(), out price))
+                {
+                    MessageBox.Show("Please enter a valid price.");
+                    return;
+                }
 
-                _subscriptionService.UpdateSubscription(subscription);
+                var period = selectedRow.Cells[3].Value?.ToString();
+                var model = selectedRow.Cells[4].Value?.ToString();
+                var subscriptionID = selectedRow.Cells[0].Value;
+                if (subscriptionID == null || string.IsNullOrEmpty(subscriptionID.ToString()))
+                {
+                    MessageBox.Show("You cannot update, first add this to data base");
+                    return;
+                }
+
+                if (ValidateFields(name, price, period, model))
+                {
+                    Subscription.PeriodTypes periodType;
+                    if (!Enum.TryParse(period, out periodType))
+                    {
+                        MessageBox.Show("Invalid period type.");
+                        return;
+                    }
+
+                    Subscription.ModelTypes modelType;
+                    if (!Enum.TryParse(model, out modelType))
+                    {
+                        MessageBox.Show("Invalid model type.");
+                        return;
+                    }
+
+                    var subscription = new Subscription((int)subscriptionID, name, price, periodType, modelType);
+
+                    _subscriptionService.UpdateSubscription(subscription);
+                }
             }
         }
 
@@ -126,17 +158,67 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewSubscriptions.SelectedRows[0];
 
-                var name = (string)selectedRow.Cells[1].Value;
-                var price = (decimal)selectedRow.Cells[2].Value;
-                var period = (string)selectedRow.Cells[3].Value;
-                Subscription.PeriodTypes periodType = (Subscription.PeriodTypes)Enum.Parse(typeof(Subscription.PeriodTypes), period);
-                var model = (string)selectedRow.Cells[4].Value;
-                Subscription.ModelTypes modelType = (Subscription.ModelTypes)Enum.Parse(typeof(Subscription.ModelTypes), model);
+                var name = selectedRow.Cells[1].Value?.ToString();
+                decimal price;
+                if (!decimal.TryParse(selectedRow.Cells[2].Value?.ToString(), out price))
+                {
+                    MessageBox.Show("Please enter a valid price.");
+                    return;
+                }
 
-                var subscription = new Subscription(name, price, periodType, modelType);
+                var period = selectedRow.Cells[3].Value?.ToString();
+                var model = selectedRow.Cells[4].Value?.ToString();
 
-                _subscriptionService.UpdateSubscription(subscription);
+                if (ValidateFields(name, price, period, model))
+                {
+                    Subscription.PeriodTypes periodType;
+                    if (!Enum.TryParse(period, out periodType))
+                    {
+                        MessageBox.Show("Invalid period type.");
+                        return;
+                    }
+
+                    Subscription.ModelTypes modelType;
+                    if (!Enum.TryParse(model, out modelType))
+                    {
+                        MessageBox.Show("Invalid model type.");
+                        return;
+                    }
+
+                    var subscription = new Subscription(name, price, periodType, modelType);
+
+                    _subscriptionService.CreatSubscription(subscription);
+                }
             }
+        }
+
+        private bool ValidateFields(string name, decimal price, string period, string model)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("Please enter a name.");
+                return false;
+            }
+
+            if (price <= 0)
+            {
+                MessageBox.Show("Please enter a valid price.");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(period) || !Enum.IsDefined(typeof(Subscription.PeriodTypes), period))
+            {
+                MessageBox.Show("Please select a valid period.");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(model) || !Enum.IsDefined(typeof(Subscription.ModelTypes), model))
+            {
+                MessageBox.Show("Please select a valid model.");
+                return false;
+            }
+
+            return true;
         }
     }
 }

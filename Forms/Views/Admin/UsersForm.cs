@@ -111,15 +111,45 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewUsers.SelectedRows[0];
 
-                var userID = (int)selectedRow.Cells[0].Value;
-                var subscriptionId = (int)selectedRow.Cells[1].Value;
-                var email = (string)selectedRow.Cells[2].Value;
-                var password = (string)selectedRow.Cells[3].Value;
-                var role = (int)selectedRow.Cells[4].Value;
-                var name = (string)selectedRow.Cells[7].Value;
+                if (selectedRow.IsNewRow || selectedRow.Index == dataGridViewUsers.Rows.Count - 1)
+                {
+                    MessageBox.Show("Select not empty row!");
+                    return;
+                }
+
+                var userID = selectedRow.Cells[0].Value;
+                if (userID == null || string.IsNullOrEmpty(userID.ToString()))
+                {
+                    MessageBox.Show("You cannot update, first add this to data base");
+                    return;
+                }
+                int subscriptionId = -1;
+                if (selectedRow.Cells[1]?.Value != null)
+                {
+                    if (int.TryParse(selectedRow.Cells[1].Value.ToString(), out int result))
+                    {
+                        subscriptionId = result;
+                    }
+                }
+                var email = selectedRow.Cells[2]?.Value?.ToString() ?? "";
+                var password = selectedRow.Cells[3]?.Value?.ToString() ?? "";
+                int role = -1;
+                if (selectedRow.Cells[4]?.Value != null)
+                {
+                    if (int.TryParse(selectedRow.Cells[4].Value.ToString(), out int result))
+                    {
+                        role = result;
+                    }
+                }
+                var name = selectedRow.Cells[7]?.Value?.ToString() ?? "";
                 var apiKey = selectedRow.Cells[8]?.Value?.ToString() ?? "";
 
-                var user = new Models.User(userID, subscriptionId, email, role, password, name, apiKey);
+                if (!ValidateFields(subscriptionId, role, email, password, name))
+                {
+                    return;
+                }
+
+                var user = new Models.User((int)userID, subscriptionId, email, role, password, name, apiKey);
 
                 _userService.UpdateUser(user);
             }
@@ -134,17 +164,84 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewUsers.SelectedRows[0];
 
-                var subscriptionId = (int)selectedRow.Cells[1].Value;
-                var email = (string)selectedRow.Cells[2].Value;
-                var password = (string)selectedRow.Cells[3].Value;
-                var role = (int)selectedRow.Cells[4].Value;
-                var name = (string)selectedRow.Cells[7].Value;
+                int subscriptionId = -1;
+                if (selectedRow.Cells[1]?.Value != null)
+                {
+                    if (int.TryParse(selectedRow.Cells[1].Value.ToString(), out int result))
+                    {
+                        subscriptionId = result;
+                    }
+                }
+                var email = selectedRow.Cells[2]?.Value?.ToString() ?? "";
+                var password = selectedRow.Cells[3]?.Value?.ToString() ?? "";
+                int role = -1;
+                if (selectedRow.Cells[4]?.Value != null)
+                {
+                    if (int.TryParse(selectedRow.Cells[4].Value.ToString(), out int result))
+                    {
+                        role = result;
+                    }
+                }
+                var name = selectedRow.Cells[7]?.Value?.ToString() ?? "";
                 var apiKey = selectedRow.Cells[8]?.Value?.ToString() ?? "";
+
+                if (!ValidateFields(subscriptionId, role, email, password, name))
+                {
+                    return;
+                }
 
                 var user = new Models.User(subscriptionId, email, role, password, name, apiKey);
 
                 _userService.CreateUser(user);
             }
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool ValidateFields(int subscriptionId, int role, string email, string password, string name)
+        {
+            if (subscriptionId == -1)
+            {
+                MessageBox.Show("Please select a subscription.");
+                return false;
+            }
+
+            if (role == -1)
+            {
+                MessageBox.Show("Please select a role.");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(email) || !IsValidEmail(email))
+            {
+                MessageBox.Show("Please enter a valid email address.");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(password))
+            {
+                MessageBox.Show("Please enter a password.");
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("Please enter a name.");
+                return false;
+            }
+
+            return true;
         }
     }
 }
