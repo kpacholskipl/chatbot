@@ -19,6 +19,9 @@ namespace ChatBot.Services
         }
 
         public List<User> GetListUsers() => UserHelper.GetFromDataSet(GetUsersData());
+
+        public List<User> GetUsersBySubscriptionId(int id) => UserHelper.GetFromDataSet(GetUsersData($"subscription_id = {id}"))
+
         public DataSet GetUsers() => GetUsersData();
         public User GetUser(int id) => UserHelper.GetFromDataSet(GetUsersData($"id = {id}")).FirstOrDefault();
         public User Login(string email, string password) => UserHelper.GetFromDataSet(GetUsersData($"email = '{email}' AND password = '{password}'")).FirstOrDefault();

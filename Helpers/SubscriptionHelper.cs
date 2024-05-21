@@ -31,8 +31,8 @@ namespace ChatBot.Helpers
         public static SqlCommand AddParametrsToSqlCommand(SqlCommand cmd, Subscription subscription)
         {
             cmd.Parameters.AddWithValue("@name", subscription.Name);
-            cmd.Parameters.AddWithValue("@period", subscription.Period);
-            cmd.Parameters.AddWithValue("@model", subscription.Model);
+            cmd.Parameters.AddWithValue("@period", subscription.Period.ToString());
+            cmd.Parameters.AddWithValue("@model", subscription.Model.ToString());
             cmd.Parameters.AddWithValue("@price", subscription.Price);
 
             return cmd;
