@@ -44,5 +44,10 @@ namespace ChatBot.Forms.Views.User
             _loggedUser.Name = name;
             _userService.UpdateUser(_loggedUser);
         }
+
+        private void MyAccountForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

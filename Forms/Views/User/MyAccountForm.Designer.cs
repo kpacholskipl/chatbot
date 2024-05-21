@@ -89,6 +89,7 @@
             this.Controls.Add(this.labelApiKey);
             this.Name = "MyAccountForm";
             this.Text = "MyAccountForm";
+            this.Load += new System.EventHandler(this.MyAccountForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

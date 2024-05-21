@@ -25,7 +25,7 @@ namespace ChatBot.Forms
 
         private void buttonChat_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new ChatForm());
+            OpenChildForm(new ChatForm(_loggedUser));
         }
 
         private void buttonHistory_Click(object sender, EventArgs e)
@@ -49,6 +49,16 @@ namespace ChatBot.Forms
             panelDesktop.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+        }
+
+        private void panelDesktop_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void UserForm_Load(object sender, EventArgs e)
+        {
+            OpenChildForm(new ChatForm(_loggedUser));
         }
     }
 }
