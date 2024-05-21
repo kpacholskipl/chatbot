@@ -37,7 +37,7 @@ namespace ChatBot.Forms.Views.Admin
             periodTypeColumn.DataPropertyName = "period";
             periodTypeColumn.DataSource = periodTypes;
             periodTypeColumn.DisplayMember = "Name";
-            periodTypeColumn.ValueMember = "Id";
+            periodTypeColumn.ValueMember = "Name";
 
             var modelTypes = Enum.GetValues(typeof(ModelTypes)).Cast<ModelTypes>().Select((e, index) => new { Id = index, Name = e.ToString() }).ToList();
 
@@ -46,7 +46,7 @@ namespace ChatBot.Forms.Views.Admin
             modelTypeColumn.DataPropertyName = "model";
             modelTypeColumn.DataSource = modelTypes;
             modelTypeColumn.DisplayMember = "Name";
-            modelTypeColumn.ValueMember = "Id";
+            modelTypeColumn.ValueMember = "Name";
 
             dataGridViewSubscriptions.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Name", DataPropertyName = "name" });
             dataGridViewSubscriptions.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Price", DataPropertyName = "price" });
@@ -103,13 +103,13 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewSubscriptions.SelectedRows[0];
 
-                var name = (string)selectedRow.Cells["name"].Value;
-                var price = (decimal)selectedRow.Cells["price"].Value;
-                var period = (string)selectedRow.Cells["period"].Value;
+                var name = (string)selectedRow.Cells[1].Value;
+                var price = (decimal)selectedRow.Cells[2].Value;
+                var period = (string)selectedRow.Cells[3].Value;
                 Subscription.PeriodTypes periodType = (Subscription.PeriodTypes)Enum.Parse(typeof(Subscription.PeriodTypes), period);
-                var model = (string)selectedRow.Cells["model"].Value;
+                var model = (string)selectedRow.Cells[4].Value;
                 Subscription.ModelTypes modelType = (Subscription.ModelTypes)Enum.Parse(typeof(Subscription.ModelTypes), model);
-                var subscriptionID = (int)selectedRow.Cells["id"].Value;
+                var subscriptionID = (int)selectedRow.Cells[0].Value;
 
                 var subscription = new Subscription(subscriptionID, name, price, periodType, modelType);
 
@@ -126,11 +126,11 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewSubscriptions.SelectedRows[0];
 
-                var name = (string)selectedRow.Cells["name"].Value;
-                var price = (decimal)selectedRow.Cells["price"].Value;
-                var period = (string)selectedRow.Cells["period"].Value;
+                var name = (string)selectedRow.Cells[1].Value;
+                var price = (decimal)selectedRow.Cells[2].Value;
+                var period = (string)selectedRow.Cells[3].Value;
                 Subscription.PeriodTypes periodType = (Subscription.PeriodTypes)Enum.Parse(typeof(Subscription.PeriodTypes), period);
-                var model = (string)selectedRow.Cells["model"].Value;
+                var model = (string)selectedRow.Cells[4].Value;
                 Subscription.ModelTypes modelType = (Subscription.ModelTypes)Enum.Parse(typeof(Subscription.ModelTypes), model);
 
                 var subscription = new Subscription(name, price, periodType, modelType);

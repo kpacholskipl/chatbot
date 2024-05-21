@@ -54,14 +54,14 @@ namespace ChatBot.Forms
 
         private void buttonFillAdmin_Click(object sender, EventArgs e)
         {
-            textBoxEmail.Text = "user4@example.com";
-            textBoxPassword.Text = "password4";
+            textBoxEmail.Text = "user1@example.com";
+            textBoxPassword.Text = "password1";
         }
 
         private void buttonFillUser_Click(object sender, EventArgs e)
         {
-            textBoxEmail.Text = "user1@example.com";
-            textBoxPassword.Text = "password1";
+            textBoxEmail.Text = "user2@example.com";
+            textBoxPassword.Text = "password2";
         }
 
         private void buttonCreateAccount_Click(object sender, EventArgs e)
