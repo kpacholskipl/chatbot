@@ -23,7 +23,7 @@ namespace ChatBot.Services
 
         public bool CreatSubscription(Subscription subscription)
         {
-            SqlCommand cmd = new SqlCommand("Insert into subscriptions (name, price, model, perios) VALUES (@name, @price, @model, @period)");
+            SqlCommand cmd = new SqlCommand("Insert into subscriptions (name, price, model, period) VALUES (@name, @price, @model, @period)");
             cmd = SubscriptionHelper.AddParametrsToSqlCommand(cmd, subscription);
             return new DatabaseHelper().InsertCommand(cmd);
 
