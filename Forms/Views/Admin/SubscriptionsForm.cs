@@ -85,6 +85,13 @@ namespace ChatBot.Forms.Views.Admin
                     return;
                 }
 
+                var userService = new UserService();
+                if (userService.GetUsersBySubscriptionId((int)subscriptionID).Count() > 0)
+                {
+                    MessageBox.Show("You cannot delete a subscription, it subscription is assigned to the user");
+                    return;
+                }
+
                 _subscriptionService.DeleteSubscription((int)subscriptionID);
                 LoadSubscriptions();
             }
