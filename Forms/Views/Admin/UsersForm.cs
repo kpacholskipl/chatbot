@@ -1,4 +1,5 @@
-﻿using ChatBot.Services;
+﻿using ChatBot.Models;
+using ChatBot.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,9 +22,42 @@ namespace ChatBot.Forms.Views.Admin
 
         private void UsersForm_Load(object sender, EventArgs e)
         {
+            PrepareDataGridView();
             LoadUsers();
 
             bindingNavigatorUsers.BindingSource = bindingSourceUsers;
+        }
+
+        private void PrepareDataGridView()
+        {
+            var subscriptionService = new SubscriptionService();
+            var subscriptions = subscriptionService.GetListSubsciprtions();
+            DataGridViewComboBoxColumn subscriptionColumn = new DataGridViewComboBoxColumn();
+            subscriptionColumn.HeaderText = "Subscription";
+            subscriptionColumn.DataPropertyName = "subscription_id";
+            subscriptionColumn.DataSource = subscriptions;
+            subscriptionColumn.DisplayMember = "Name";
+            subscriptionColumn.ValueMember = "Id";
+
+            var roles = new List<Role>
+            {
+                new Role { Id = 1, Name = "Admin" },
+                new Role { Id = 0, Name = "User" }
+            };
+
+            DataGridViewComboBoxColumn roleColumn = new DataGridViewComboBoxColumn();
+            roleColumn.HeaderText = "Role";
+            roleColumn.DataPropertyName = "role";
+            roleColumn.DataSource = roles;
+            roleColumn.DisplayMember = "Name";
+            roleColumn.ValueMember = "Id";
+
+            dataGridViewUsers.Columns.Add(subscriptionColumn);
+            dataGridViewUsers.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Email", DataPropertyName = "email" });
+            dataGridViewUsers.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Password", DataPropertyName = "password" });
+            dataGridViewUsers.Columns.Add(roleColumn);
+            dataGridViewUsers.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Name", DataPropertyName = "name" });
+            dataGridViewUsers.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "API Key", DataPropertyName = "api_key" });
         }
 
         private void LoadUsers()
@@ -77,13 +111,13 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewUsers.SelectedRows[0];
 
-                var email = (string)selectedRow.Cells["email"].Value;
-                var password = (string)selectedRow.Cells["password"].Value;
-                var name = (string)selectedRow.Cells["name"].Value;
-                var role = (int)selectedRow.Cells["role"].Value;
-                var subscriptionId = (int)selectedRow.Cells["subscription_id"].Value;
-                var apiKey = selectedRow.Cells["api_key"]?.Value?.ToString() ?? "";
-                var userID = (int)selectedRow.Cells["id"].Value;
+                var userID = (int)selectedRow.Cells[0].Value;
+                var subscriptionId = (int)selectedRow.Cells[1].Value;
+                var email = (string)selectedRow.Cells[2].Value;
+                var password = (string)selectedRow.Cells[3].Value;
+                var role = (int)selectedRow.Cells[4].Value;
+                var name = (string)selectedRow.Cells[7].Value;
+                var apiKey = selectedRow.Cells[8]?.Value?.ToString() ?? "";
 
                 var user = new Models.User(userID, subscriptionId, email, role, password, name, apiKey);
 
@@ -100,12 +134,12 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewUsers.SelectedRows[0];
 
-                var email = (string)selectedRow.Cells["email"].Value;
-                var password = (string)selectedRow.Cells["password"].Value;
-                var name = (string)selectedRow.Cells["name"].Value;
-                var role = (int)selectedRow.Cells["role"].Value;
-                var apiKey = selectedRow.Cells["api_key"]?.Value?.ToString() ?? "";
-                var subscriptionId = (int)selectedRow.Cells["subscription_id"].Value;
+                var subscriptionId = (int)selectedRow.Cells[1].Value;
+                var email = (string)selectedRow.Cells[2].Value;
+                var password = (string)selectedRow.Cells[3].Value;
+                var role = (int)selectedRow.Cells[4].Value;
+                var name = (string)selectedRow.Cells[7].Value;
+                var apiKey = selectedRow.Cells[8]?.Value?.ToString() ?? "";
 
                 var user = new Models.User(subscriptionId, email, role, password, name, apiKey);
 

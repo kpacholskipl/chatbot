@@ -123,6 +123,7 @@
     <Compile Include="Helpers\DatabaseHelper.cs" />
     <Compile Include="Models\ConversationItem.cs" />
     <Compile Include="Models\Conversation.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Subscription.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\User.cs" />
