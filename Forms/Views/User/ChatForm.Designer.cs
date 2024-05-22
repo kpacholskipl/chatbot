@@ -28,34 +28,70 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            buttonSend = new System.Windows.Forms.Button();
+            textBoxPrompt = new System.Windows.Forms.TextBox();
+            labelMessages = new System.Windows.Forms.Label();
+            labelChat = new System.Windows.Forms.Label();
+            SuspendLayout();
             // 
-            // label1
+            // buttonSend
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(340, 197);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Chat";
+            buttonSend.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            buttonSend.Location = new System.Drawing.Point(740, 474);
+            buttonSend.Name = "buttonSend";
+            buttonSend.Size = new System.Drawing.Size(156, 24);
+            buttonSend.TabIndex = 1;
+            buttonSend.Text = "Send";
+            buttonSend.UseVisualStyleBackColor = true;
+            // 
+            // textBoxPrompt
+            // 
+            textBoxPrompt.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            textBoxPrompt.Location = new System.Drawing.Point(43, 475);
+            textBoxPrompt.Name = "textBoxPrompt";
+            textBoxPrompt.Size = new System.Drawing.Size(691, 23);
+            textBoxPrompt.TabIndex = 2;
+            // 
+            // labelMessages
+            // 
+            labelMessages.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            labelMessages.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            labelMessages.Location = new System.Drawing.Point(43, 41);
+            labelMessages.Name = "labelMessages";
+            labelMessages.Size = new System.Drawing.Size(853, 416);
+            labelMessages.TabIndex = 3;
+            // 
+            // labelChat
+            // 
+            labelChat.AutoSize = true;
+            labelChat.Location = new System.Drawing.Point(45, 17);
+            labelChat.Name = "labelChat";
+            labelChat.Size = new System.Drawing.Size(32, 15);
+            labelChat.TabIndex = 4;
+            labelChat.Text = "Chat";
             // 
             // ChatForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
-            this.Name = "ChatForm";
-            this.Text = "ChatForm";
-            this.Load += new System.EventHandler(this.ChatForm_Load);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(933, 519);
+            Controls.Add(labelChat);
+            Controls.Add(labelMessages);
+            Controls.Add(textBoxPrompt);
+            Controls.Add(buttonSend);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "ChatForm";
+            Text = "ChatForm";
+            Load += ChatForm_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button buttonSend;
+        private System.Windows.Forms.TextBox textBoxPrompt;
+        private System.Windows.Forms.Label labelMessages;
+        private System.Windows.Forms.Label labelChat;
     }
 }

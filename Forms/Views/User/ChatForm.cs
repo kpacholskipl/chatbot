@@ -1,4 +1,7 @@
-﻿using System;
+﻿using ChatBot.Helpers;
+using ChatBot.Models;
+using ChatBot.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,12 +16,38 @@ namespace ChatBot.Forms.Views.User
     public partial class ChatForm : Form
     {
         private Models.User _loggedUser;
+        private int _conversationId;
         private Form currentChildForm;
+        private readonly ConversationItemService _conversationItemService = new ConversationItemService();
 
         public ChatForm(Models.User user)
         {
             InitializeComponent();
             _loggedUser = user;
+        }
+
+        public ChatForm(Models.User user, int conversationId)
+        {
+            InitializeComponent();
+            _loggedUser = user;
+            _conversationId = conversationId;
+            labelMessages.Text = "";
+
+            var conversationItems = _conversationItemService.GetListConversationItemsByConversationId(_conversationId);
+
+            conversationItems.OrderBy(item => item.Order).ToList().ForEach(item =>
+            {
+                if (item.Order % 2 == 0)
+                {
+                    labelMessages.Text += "Assistant:\n" + item.Message + "\n\n";
+                }
+                else
+                {
+                    labelMessages.Text += "User:\n" + item.Message + "\n\n";
+                }
+            });
+
+            Console.WriteLine(conversationItems);
         }
 
         private void ChatForm_Load(object sender, EventArgs e)
@@ -28,7 +57,6 @@ namespace ChatBot.Forms.Views.User
                 MessageBox.Show("Please enter an api key");
                 OpenChildForm(new MyAccountForm(_loggedUser));
             }
-
         }
 
         private void OpenChildForm(Form childForm)

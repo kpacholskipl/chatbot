@@ -30,7 +30,7 @@ namespace ChatBot.Forms
 
         private void buttonHistory_Click(object sender, EventArgs e)
         {
-            OpenChildForm(new HistoryForm());
+            OpenChildForm(new HistoryForm(_loggedUser));
         }
 
         private void buttonMyAccount_Click(object sender, EventArgs e)
