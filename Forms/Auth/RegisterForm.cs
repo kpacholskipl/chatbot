@@ -74,14 +74,14 @@ namespace ChatBot.Forms.Auth
             var newUser = new User(subscriptionPlan.Id, email, 0, password, name);
 
             var userService = new UserService();
-            var isAccountCreated = userService.CreateUser(newUser);
+            var user = userService.CreateUserAndGet(newUser);
 
-            if (isAccountCreated)
+            if (user != null)
             {
-                //var frm = new UserForm();
-                //frm.Show();
-                //frm.FormClosed += (s, args) => this.Close();
-                //this.Hide();
+                var frm = new UserForm(user);
+                frm.Show();
+                frm.FormClosed += (s, args) => this.Close();
+                this.Hide();
             }
             else
             {

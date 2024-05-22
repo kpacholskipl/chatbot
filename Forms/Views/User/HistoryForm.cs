@@ -16,5 +16,10 @@ namespace ChatBot.Forms.Views.User
         {
             InitializeComponent();
         }
+
+        private void HistoryForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -28,33 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
+            dataGridViewHistory = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).BeginInit();
+            SuspendLayout();
             // 
-            // label1
+            // dataGridViewHistory
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(348, 209);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "History";
+            dataGridViewHistory.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right;
+            dataGridViewHistory.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewHistory.Location = new System.Drawing.Point(12, 12);
+            dataGridViewHistory.Name = "dataGridViewHistory";
+            dataGridViewHistory.Size = new System.Drawing.Size(909, 495);
+            dataGridViewHistory.TabIndex = 1;
             // 
             // HistoryForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.label1);
-            this.Name = "HistoryForm";
-            this.Text = "HistoryForm";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(933, 519);
+            Controls.Add(dataGridViewHistory);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "HistoryForm";
+            Text = "HistoryForm";
+            Load += HistoryForm_Load;
+            ((System.ComponentModel.ISupportInitialize)dataGridViewHistory).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridView dataGridViewHistory;
     }
 }

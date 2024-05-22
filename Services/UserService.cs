@@ -39,11 +39,13 @@ namespace ChatBot.Services
             cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
             return new DatabaseHelper().InsertCommand(cmd);
         }
-        public int CreateUserAndGet(User user)
+        public User CreateUserAndGet(User user)
         {
             SqlCommand cmd = new SqlCommand("Insert into users (subscription_id, email, password, role, name, api_key) VALUES (@subscriptionId, @email, @password, @role, @name, @apiKey); SELECT SCOPE_IDENTITY()");
             cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
-            return new DatabaseHelper().InsertScalar(cmd);
+
+            int id = new DatabaseHelper().InsertScalar(cmd);
+            return GetUser(id);
         }
         public bool UpdateUser(User user)
         {
