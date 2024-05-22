@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using ChatBot.Models;
 using System.Security.Cryptography;
 using System.Text;
+using System.Linq;
 
 namespace ChatBot.Helpers
 {
@@ -46,10 +47,13 @@ namespace ChatBot.Helpers
             cmd.Parameters.AddWithValue("@role", user.Role);
             cmd.Parameters.AddWithValue("@name", user.Name);
             cmd.Parameters.AddWithValue("@apiKey", user.ApiKey ?? string.Empty);
-            if (isCreate)
+            if (user.Password.Count() < 33)
             {
                 var password = HashPassword(user.Password);
                 cmd.Parameters.AddWithValue("@password", password);
+            }else
+            {
+                cmd.Parameters.AddWithValue("@password", user.Password);
             }
 
             return cmd;

@@ -36,13 +36,13 @@ namespace ChatBot.Services
         public bool CreateUser(User user)
         {
             SqlCommand cmd = new SqlCommand("Insert into users (subscription_id, email, password, role, name, api_key) VALUES (@subscriptionId, @email, @password, @role, @name, @apiKey)");
-            cmd = UserHelper.AddParametrsToSqlCommand(cmd, user, true);
+            cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
             return new DatabaseHelper().InsertCommand(cmd);
         }
         public int CreateUserAndGet(User user)
         {
             SqlCommand cmd = new SqlCommand("Insert into users (subscription_id, email, password, role, name, api_key) VALUES (@subscriptionId, @email, @password, @role, @name, @apiKey); SELECT SCOPE_IDENTITY()");
-            cmd = UserHelper.AddParametrsToSqlCommand(cmd, user, true);
+            cmd = UserHelper.AddParametrsToSqlCommand(cmd, user);
             return new DatabaseHelper().InsertScalar(cmd);
         }
         public bool UpdateUser(User user)
