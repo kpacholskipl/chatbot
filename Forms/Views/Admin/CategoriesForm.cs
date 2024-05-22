@@ -66,6 +66,13 @@ namespace ChatBot.Forms.Views.Admin
                     return;
                 }
 
+                var conversationService = new ConversationService();
+                if (conversationService.GetConversationsByCategory((int)categoryID).Count() > 0)
+                {
+                    MessageBox.Show("You cannot delete a category, the category is assigned to the conversation");
+                    return;
+                }
+
                 _categoryService.DeleteCategory((int)categoryID);
                 LoadCategories();
             }
@@ -93,6 +100,7 @@ namespace ChatBot.Forms.Views.Admin
                 var category = new Category(name);
 
                 _categoryService.CreateCategory(category);
+                LoadCategories();
             }
         }
 
@@ -128,6 +136,7 @@ namespace ChatBot.Forms.Views.Admin
                 var category = new Category((int)categoryID, name);
 
                 _categoryService.UpdateCategory(category);
+                LoadCategories();
             }
         }
 
@@ -140,6 +149,11 @@ namespace ChatBot.Forms.Views.Admin
             }
 
             return true;
+        }
+
+        private void dataGridViewCategories_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

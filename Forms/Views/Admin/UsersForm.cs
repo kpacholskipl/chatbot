@@ -93,7 +93,7 @@ namespace ChatBot.Forms.Views.Admin
                     MessageBox.Show("You cannot delete a user with an empty or null ID!");
                     return;
                 }
-  
+
                 _userService.DeleteUser((int)userID);
                 LoadUsers();
             }
@@ -153,6 +153,7 @@ namespace ChatBot.Forms.Views.Admin
                 var user = new Models.User((int)userID, subscriptionId, email, role, password, name, apiKey);
 
                 _userService.UpdateUser(user);
+                LoadUsers();
             }
         }
 
@@ -194,6 +195,7 @@ namespace ChatBot.Forms.Views.Admin
                 var user = new Models.User(subscriptionId, email, role, password, name, apiKey);
 
                 _userService.CreateUser(user);
+                LoadUsers();
             }
         }
 
@@ -245,36 +247,9 @@ namespace ChatBot.Forms.Views.Admin
             return true;
         }
 
-        private void buttonHashPassword_Click(object sender, EventArgs e)
+        private void bindingNavigatorUsers_RefreshItems(object sender, EventArgs e)
         {
-            string password = textBoxPasswordToHash.Text;
 
-            if (string.IsNullOrEmpty(password) || password.Length < 6)
-            {
-                MessageBox.Show("Password must be at least 6 characters long.");
-                return;
-            }
-
-            string hashedPassword = HashPassword(password);
-
-            Clipboard.SetText(hashedPassword);
-
-            MessageBox.Show("Hashed password was copied into clipboard");
-        }
-
-        static string HashPassword(string password)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
         }
     }
 }

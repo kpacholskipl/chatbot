@@ -20,6 +20,7 @@ namespace ChatBot.Services
 
         public List<Conversation> GetListConversations() => ConversationHelper.GetFromDataSet(GetConversationsData());
         public List<Conversation> GetConversationsByUser(int id) => ConversationHelper.GetFromDataSet(GetConversationsData($"user_id = {id}"));
+        public List<Conversation> GetConversationsByCategory(int id) => ConversationHelper.GetFromDataSet(GetConversationsData($"category_id = {id}"));
         public DataSet GetConversations() => GetConversationsData();
         public Conversation GetConversation(int id)
         {
