@@ -19,6 +19,7 @@ namespace ChatBot.Forms.Views.User
         private int _conversationId;
         private Form currentChildForm;
         private readonly ConversationItemService _conversationItemService = new ConversationItemService();
+        private readonly ConversationService _conversationService = new ConversationService();
 
         public ChatForm(Models.User user)
         {
@@ -31,7 +32,14 @@ namespace ChatBot.Forms.Views.User
             InitializeComponent();
             _loggedUser = user;
             _conversationId = conversationId;
+
+            PrintMessages();
+        }
+
+        public void PrintMessages()
+        {
             labelMessages.Text = "";
+            textBoxMessages.Text = "";
 
             var conversationItems = _conversationItemService.GetListConversationItemsByConversationId(_conversationId);
 
@@ -40,14 +48,14 @@ namespace ChatBot.Forms.Views.User
                 if (item.Order % 2 == 0)
                 {
                     labelMessages.Text += "Assistant:\n" + item.Message + "\n\n";
+                    textBoxMessages.Text += "Assistant:\n" + item.Message + "\n\n";
                 }
                 else
                 {
                     labelMessages.Text += "User:\n" + item.Message + "\n\n";
+                    textBoxMessages.Text += "User:\n" + item.Message + "\n\n";
                 }
             });
-
-            Console.WriteLine(conversationItems);
         }
 
         private void ChatForm_Load(object sender, EventArgs e)
@@ -74,6 +82,29 @@ namespace ChatBot.Forms.Views.User
             this.Tag = childForm;
             childForm.BringToFront();
             childForm.Show();
+        }
+
+        private async void buttonSend_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Conversation conversation = _conversationService.GetConversation(_conversationId);
+                ConversationItem conversationItem = new ConversationItem(conversation.Id, conversation.Items.Count() + 1, textBoxPrompt.Text);
+                _conversationItemService.CreateConversationItem(conversationItem);
+                conversation.Items.Add(conversationItem);
+
+                await new ChatHelper().Send(conversation, _loggedUser);
+
+                PrintMessages();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                textBoxPrompt.Text = "";
+            }
         }
     }
 }
