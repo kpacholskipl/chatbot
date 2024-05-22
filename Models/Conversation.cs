@@ -24,5 +24,12 @@ namespace ChatBot.Models
             CategoryId = categoryId;
             Title = title;
         }
+
+        public Conversation(int userId, int categoryId, string title)
+        {
+            UserId = userId;
+            CategoryId = categoryId;
+            Title = title;
+        }
     }
 }

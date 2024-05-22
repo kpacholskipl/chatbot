@@ -28,91 +28,110 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelDesktop = new System.Windows.Forms.Panel();
-            this.panelMenu = new System.Windows.Forms.Panel();
-            this.buttonMyAccount = new System.Windows.Forms.Button();
-            this.buttonHistory = new System.Windows.Forms.Button();
-            this.buttonChat = new System.Windows.Forms.Button();
-            this.panelMenu.SuspendLayout();
-            this.SuspendLayout();
+            panelDesktop = new System.Windows.Forms.Panel();
+            labelWelcome = new System.Windows.Forms.Label();
+            panelMenu = new System.Windows.Forms.Panel();
+            buttonMyAccount = new System.Windows.Forms.Button();
+            buttonHistory = new System.Windows.Forms.Button();
+            buttonChat = new System.Windows.Forms.Button();
+            panelDesktop.SuspendLayout();
+            panelMenu.SuspendLayout();
+            SuspendLayout();
             // 
             // panelDesktop
             // 
-            this.panelDesktop.Location = new System.Drawing.Point(170, 0);
-            this.panelDesktop.Name = "panelDesktop";
-            this.panelDesktop.Size = new System.Drawing.Size(634, 450);
-            this.panelDesktop.TabIndex = 0;
-            this.panelDesktop.Paint += new System.Windows.Forms.PaintEventHandler(this.panelDesktop_Paint);
+            panelDesktop.Controls.Add(labelWelcome);
+            panelDesktop.Location = new System.Drawing.Point(198, 0);
+            panelDesktop.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelDesktop.Name = "panelDesktop";
+            panelDesktop.Size = new System.Drawing.Size(740, 519);
+            panelDesktop.TabIndex = 0;
+            panelDesktop.Paint += panelDesktop_Paint;
+            // 
+            // labelWelcome
+            // 
+            labelWelcome.AutoSize = true;
+            labelWelcome.Font = new System.Drawing.Font("Segoe UI", 72F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, 0);
+            labelWelcome.Location = new System.Drawing.Point(139, 173);
+            labelWelcome.Name = "labelWelcome";
+            labelWelcome.Size = new System.Drawing.Size(471, 128);
+            labelWelcome.TabIndex = 0;
+            labelWelcome.Text = "Welcome";
             // 
             // panelMenu
             // 
-            this.panelMenu.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(73)))), ((int)(((byte)(80)))), ((int)(((byte)(87)))));
-            this.panelMenu.Controls.Add(this.buttonMyAccount);
-            this.panelMenu.Controls.Add(this.buttonHistory);
-            this.panelMenu.Controls.Add(this.buttonChat);
-            this.panelMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelMenu.Name = "panelMenu";
-            this.panelMenu.Size = new System.Drawing.Size(170, 450);
-            this.panelMenu.TabIndex = 1;
+            panelMenu.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            panelMenu.BackColor = System.Drawing.Color.FromArgb(73, 80, 87);
+            panelMenu.Controls.Add(buttonMyAccount);
+            panelMenu.Controls.Add(buttonHistory);
+            panelMenu.Controls.Add(buttonChat);
+            panelMenu.Location = new System.Drawing.Point(0, 0);
+            panelMenu.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            panelMenu.Name = "panelMenu";
+            panelMenu.Size = new System.Drawing.Size(198, 519);
+            panelMenu.TabIndex = 1;
             // 
             // buttonMyAccount
             // 
-            this.buttonMyAccount.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonMyAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonMyAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
-            this.buttonMyAccount.ForeColor = System.Drawing.Color.White;
-            this.buttonMyAccount.Location = new System.Drawing.Point(3, 95);
-            this.buttonMyAccount.Name = "buttonMyAccount";
-            this.buttonMyAccount.Size = new System.Drawing.Size(164, 40);
-            this.buttonMyAccount.TabIndex = 2;
-            this.buttonMyAccount.Text = "My Account";
-            this.buttonMyAccount.UseVisualStyleBackColor = true;
-            this.buttonMyAccount.Click += new System.EventHandler(this.buttonMyAccount_Click);
+            buttonMyAccount.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonMyAccount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonMyAccount.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
+            buttonMyAccount.ForeColor = System.Drawing.Color.White;
+            buttonMyAccount.Location = new System.Drawing.Point(4, 110);
+            buttonMyAccount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonMyAccount.Name = "buttonMyAccount";
+            buttonMyAccount.Size = new System.Drawing.Size(191, 46);
+            buttonMyAccount.TabIndex = 2;
+            buttonMyAccount.Text = "My Account";
+            buttonMyAccount.UseVisualStyleBackColor = true;
+            buttonMyAccount.Click += buttonMyAccount_Click;
             // 
             // buttonHistory
             // 
-            this.buttonHistory.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
-            this.buttonHistory.ForeColor = System.Drawing.Color.White;
-            this.buttonHistory.Location = new System.Drawing.Point(3, 49);
-            this.buttonHistory.Name = "buttonHistory";
-            this.buttonHistory.Size = new System.Drawing.Size(164, 40);
-            this.buttonHistory.TabIndex = 1;
-            this.buttonHistory.Text = "History";
-            this.buttonHistory.UseVisualStyleBackColor = true;
-            this.buttonHistory.Click += new System.EventHandler(this.buttonHistory_Click);
+            buttonHistory.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonHistory.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
+            buttonHistory.ForeColor = System.Drawing.Color.White;
+            buttonHistory.Location = new System.Drawing.Point(4, 57);
+            buttonHistory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonHistory.Name = "buttonHistory";
+            buttonHistory.Size = new System.Drawing.Size(191, 46);
+            buttonHistory.TabIndex = 1;
+            buttonHistory.Text = "History";
+            buttonHistory.UseVisualStyleBackColor = true;
+            buttonHistory.Click += buttonHistory_Click;
             // 
             // buttonChat
             // 
-            this.buttonChat.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonChat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonChat.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
-            this.buttonChat.ForeColor = System.Drawing.Color.White;
-            this.buttonChat.Location = new System.Drawing.Point(3, 3);
-            this.buttonChat.Name = "buttonChat";
-            this.buttonChat.Size = new System.Drawing.Size(164, 40);
-            this.buttonChat.TabIndex = 0;
-            this.buttonChat.Text = "Chat";
-            this.buttonChat.UseVisualStyleBackColor = true;
-            this.buttonChat.Click += new System.EventHandler(this.buttonChat_Click);
+            buttonChat.Cursor = System.Windows.Forms.Cursors.Hand;
+            buttonChat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            buttonChat.Font = new System.Drawing.Font("Microsoft Sans Serif", 18.25F);
+            buttonChat.ForeColor = System.Drawing.Color.White;
+            buttonChat.Location = new System.Drawing.Point(4, 3);
+            buttonChat.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            buttonChat.Name = "buttonChat";
+            buttonChat.Size = new System.Drawing.Size(191, 46);
+            buttonChat.TabIndex = 0;
+            buttonChat.Text = "Chat";
+            buttonChat.UseVisualStyleBackColor = true;
+            buttonChat.Click += buttonChat_Click;
             // 
             // UserForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panelMenu);
-            this.Controls.Add(this.panelDesktop);
-            this.Name = "UserForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "UserForm";
-            this.Load += new System.EventHandler(this.UserForm_Load);
-            this.panelMenu.ResumeLayout(false);
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            ClientSize = new System.Drawing.Size(933, 519);
+            Controls.Add(panelMenu);
+            Controls.Add(panelDesktop);
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            Name = "UserForm";
+            StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            Text = "UserForm";
+            Load += UserForm_Load;
+            panelDesktop.ResumeLayout(false);
+            panelDesktop.PerformLayout();
+            panelMenu.ResumeLayout(false);
+            ResumeLayout(false);
         }
 
         #endregion
@@ -122,5 +141,6 @@
         private System.Windows.Forms.Button buttonChat;
         private System.Windows.Forms.Button buttonMyAccount;
         private System.Windows.Forms.Button buttonHistory;
+        private System.Windows.Forms.Label labelWelcome;
     }
 }

@@ -16,15 +16,34 @@ namespace ChatBot.Forms.Views.User
     public partial class ChatForm : Form
     {
         private Models.User _loggedUser;
-        private int _conversationId;
+        private int _conversationId = -1;
         private Form currentChildForm;
         private readonly ConversationItemService _conversationItemService = new ConversationItemService();
         private readonly ConversationService _conversationService = new ConversationService();
+        private string _title;
+        private Category _category;
 
         public ChatForm(Models.User user)
         {
             InitializeComponent();
             _loggedUser = user;
+
+            var frm = new ChatPropertiesForm(_loggedUser);
+            frm.FormClosedEvent += ChatPropertiesForm_FormClosedEvent;
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                _title = frm.Title;
+                _category = frm.Category;
+                Conversation conversation = new Conversation(_loggedUser.Id, _category.Id, _title);
+                conversation = _conversationService.CreateAndGetConversation(conversation);
+                _conversationId = conversation.Id;
+            }
+        }
+
+        private void ChatPropertiesForm_FormClosedEvent(object sender, EventArgs e)
+        {
+            OpenChildForm(new MyAccountForm(_loggedUser));
         }
 
         public ChatForm(Models.User user, int conversationId)
@@ -89,9 +108,13 @@ namespace ChatBot.Forms.Views.User
             try
             {
                 Conversation conversation = _conversationService.GetConversation(_conversationId);
+                if (conversation.Items.Count % 2 == 1)
+                {
+                    return;
+                }
                 ConversationItem conversationItem = new ConversationItem(conversation.Id, conversation.Items.Count() + 1, textBoxPrompt.Text);
                 _conversationItemService.CreateConversationItem(conversationItem);
-                conversation.Items.Add(conversationItem);
+                conversation = _conversationService.GetConversation(_conversationId);
 
                 await new ChatHelper().Send(conversation, _loggedUser);
 
@@ -99,7 +122,7 @@ namespace ChatBot.Forms.Views.User
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
             {

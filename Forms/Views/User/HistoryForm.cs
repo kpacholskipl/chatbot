@@ -36,6 +36,10 @@ namespace ChatBot.Forms.Views.User
             dataGridViewHistory.Columns.Add(btnColumn);
 
             dataGridViewHistory.CellContentClick += DataGridViewHistory_CellContentClick;
+
+            dataGridViewHistory.Columns[0].Visible = false;
+            dataGridViewHistory.Columns[1].Visible = false;
+            dataGridViewHistory.Columns[2].Visible = false;
         }
 
         private void DataGridViewHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -58,7 +58,7 @@ namespace ChatBot.Forms
 
         private void UserForm_Load(object sender, EventArgs e)
         {
-            OpenChildForm(new ChatForm(_loggedUser));
+            //OpenChildForm(new ChatForm(_loggedUser));
         }
     }
 }

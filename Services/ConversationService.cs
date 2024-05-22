@@ -37,12 +37,14 @@ namespace ChatBot.Services
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation, true);
             return new DatabaseHelper().InsertCommand(cmd);
         }
-        public int CreateAndGetConversation(Conversation Conversation)
+        public Conversation CreateAndGetConversation(Conversation Conversation)
         {
             SqlCommand cmd = new SqlCommand("Insert into Conversations (user_id, category_id, title) VALUES (@userId, @categoryId, @title);SELECT SCOPE_IDENTITY()");
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation, true);
-            return new DatabaseHelper().InsertScalar(cmd);
+            int id = new DatabaseHelper().InsertScalar(cmd);
+            return GetConversation(id);
         }
+
         public bool UpdateConversation(Conversation Conversation)
         {
             SqlCommand cmd = new SqlCommand("Update Conversations SET category_id = @category_id, title = @title WHERE id = @id");
