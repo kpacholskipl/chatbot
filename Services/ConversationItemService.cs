@@ -24,6 +24,12 @@ namespace ChatBot.Services
 
         public List<ConversationItem> GetListConversationItemsByConversationId(int conversationId) => ConversationItemHelper.GetFromDataSet(GetConversationItems($"conversation_id = {conversationId}"));
 
+        public bool CreateConversationItem(ConversationItem conversationItem)
+        {
+            SqlCommand cmd = new SqlCommand("Insert into conversation_items (conversation_id, [order], message) VALUES (@conversationId, @order, @message)");
+            cmd = ConversationItemHelper.AddParametrsToSqlCommand(cmd, conversationItem);
+            return new DatabaseHelper().InsertCommand(cmd);
+        }
     }
 }
 

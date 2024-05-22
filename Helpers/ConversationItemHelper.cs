@@ -10,9 +10,10 @@ namespace ChatBot.Helpers
     {
         public static List<ConversationItem> GetFromDataSet(DataSet ds)
         {
-           List<ConversationItem> conversationItems = new List<ConversationItem>();
+           List<ConversationItem> conversationItems = new();
 
-             foreach (DataRow row in ds.Tables["Conversations_items"].Rows)
+            Console.WriteLine(ds.Tables);
+             foreach (DataRow row in ds.Tables["conversation_items"].Rows)
             {
                 int id = Convert.ToInt32(row["id"]);
                 
@@ -31,7 +32,7 @@ namespace ChatBot.Helpers
         }
         public static SqlCommand AddParametrsToSqlCommand(SqlCommand cmd, ConversationItem ConversationItem)
         {
-            cmd.Parameters.AddWithValue("@ConversationId", ConversationItem.ConversationId);
+            cmd.Parameters.AddWithValue("@conversationId", ConversationItem.ConversationId);
             cmd.Parameters.AddWithValue("@message", ConversationItem.Message);
             cmd.Parameters.AddWithValue("@order", ConversationItem.Order);
 
