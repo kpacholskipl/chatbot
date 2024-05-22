@@ -39,18 +39,22 @@ namespace ChatBot.Helpers
 
             return users;
         }
-        public static SqlCommand AddParametrsToSqlCommand(SqlCommand cmd, User user)
+        public static SqlCommand AddParametrsToSqlCommand(SqlCommand cmd, User user, bool isCreate = false)
         {
             cmd.Parameters.AddWithValue("@subscriptionId", user.SubscriptionId);
             cmd.Parameters.AddWithValue("@email", user.Email);
-            cmd.Parameters.AddWithValue("@password", user.Password);
             cmd.Parameters.AddWithValue("@role", user.Role);
             cmd.Parameters.AddWithValue("@name", user.Name);
             cmd.Parameters.AddWithValue("@apiKey", user.ApiKey ?? string.Empty);
+            if (isCreate)
+            {
+                var password = HashPassword(user.Password);
+                cmd.Parameters.AddWithValue("@password", password);
+            }
 
             return cmd;
         }
-       /* public static HashPassword(string password)
+       public static string HashPassword(string password)
         {
             using (SHA256 sha256 = SHA256.Create())
             {
@@ -64,6 +68,6 @@ namespace ChatBot.Helpers
 
                 return builder.ToString();
             }
-        }*/
+        }
     }
 }

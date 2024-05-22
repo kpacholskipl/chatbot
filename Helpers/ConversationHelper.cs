@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using ChatBot.Models;
+using Microsoft.VisualBasic.ApplicationServices;
 
 namespace ChatBot.Helpers
 {
@@ -12,24 +13,27 @@ namespace ChatBot.Helpers
         {
            List<Conversation> Conversations = new List<Conversation>();
           
-          //  foreach (DataRow row in ds.Tables["Conversations"].Rows)
-            //{
-              //  int id = Convert.ToInt32(row["id"]);
-                //string name = row["name"].ToString();
+        foreach (DataRow row in ds.Tables["Conversations"].Rows)
+            {
+                int id = Convert.ToInt32(row["id"]);
+                int userId = Convert.ToInt32(row["user_id"]);
+                int categoryId = Convert.ToInt32(row["category_id"]);
+                string title = row["title"].ToString();
 
-                //Conversation Conversation = new Conversation(id, name);
-                //Conversations.Add(Conversation);
-           // }
+                Conversation Conversation = new Conversation(id, userId, categoryId, title);
+                Conversations.Add(Conversation);
+            }
 
             return Conversations;
         }
-        public static SqlCommand AddParametrsToSqlCommand(SqlCommand cmd, Conversation Conversation)
+        public static SqlCommand AddParametrsToSqlCommand(SqlCommand cmd, Conversation Conversation, bool isCreate = false)
         {
-            //cmd.Parameters.AddWithValue("@ConversationId", Conversation.ConversationId);
-            //cmd.Parameters.AddWithValue("@email", Conversation.Email);
-            //cmd.Parameters.AddWithValue("@password", Conversation.Password);
-            //cmd.Parameters.AddWithValue("@role", Conversation.Name);
-            //cmd.Parameters.AddWithValue("@name", Conversation.Name);
+            cmd.Parameters.AddWithValue("@categoryId", Conversation.CategoryId);
+            cmd.Parameters.AddWithValue("@title", Conversation.Title);
+            if (isCreate)
+            {
+                cmd.Parameters.AddWithValue("@userId", Conversation.UserId);
+            }
 
             return cmd;
         }

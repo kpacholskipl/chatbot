@@ -37,7 +37,7 @@ namespace ChatBot.Helpers
             {
                 conn.Open();
                 SqlDataAdapter adapter = new SqlDataAdapter { SelectCommand = command };
-                adapter.InsertCommand.Connection = conn;
+                adapter.SelectCommand.Connection = conn;
                 adapter.Fill(ds, table);
             }
             catch (SqlException ex)
@@ -175,6 +175,26 @@ namespace ChatBot.Helpers
                 conn.Close();
             }
             return true;
+        }
+        public int InsertScalar(SqlCommand command)
+        {
+            SqlConnection conn = new SqlConnection(connectionString);
+            try
+            {
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter { InsertCommand = command };
+                adapter.InsertCommand.Connection = conn;
+                return Convert.ToInt32(adapter.InsertCommand.ExecuteScalar());
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return 0;
         }
     }
 }

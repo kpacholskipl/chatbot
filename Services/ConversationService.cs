@@ -19,6 +19,7 @@ namespace ChatBot.Services
         }
 
         public List<Conversation> GetListConversations() => ConversationHelper.GetFromDataSet(GetConversationsData());
+        public List<Conversation> GetConversationsByUser(int id) => ConversationHelper.GetFromDataSet(GetConversationsData($"user_id = {id}"));
         public DataSet GetConversations() => GetConversationsData();
         public Conversation GetConversation(int id)
         {
@@ -29,25 +30,23 @@ namespace ChatBot.Services
             }
             return conversation;
         }
-        /*public Conversation Login(string email, string password) => ConversationHelper.GetFromDataSet(GetConversationsData($"email = '{email}' AND password = '{password}'")).FirstOrDefault();
-
         public bool CreateConversation(Conversation Conversation)
         {
-            SqlCommand cmd = new SqlCommand("Insert into Conversations (subscription_id, email, password,role,name) VALUES (@subscriptionId,@email,@password,@role,@name)");
-            cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation);
+            SqlCommand cmd = new SqlCommand("Insert into Conversations (user_id, category_id, title) VALUES (@userId, @categoryId, @title)");
+            cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation, true);
             return new DatabaseHelper().InsertCommand(cmd);
         }
         public bool UpdateConversation(Conversation Conversation)
         {
-            SqlCommand cmd = new SqlCommand("Update Conversations SET subscription_id = @subscriptionId, email = @email, password = @password, role = @role,name = @name, api_key = @apiKey WHERE id = @id");
+            SqlCommand cmd = new SqlCommand("Update Conversations SET category_id = @category_id, title = @title WHERE id = @id");
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation);
             cmd.Parameters.AddWithValue("id", Conversation.Id);
             return new DatabaseHelper().UpdateCommand(cmd);
         }
         public bool DeleteConversation (Conversation Conversation)
         {
-            return new DatabaseHelper().DeleteQuery($"Delete from Conversations where id = {Conversation.Id}");
+            return new DatabaseHelper().DeleteQuery($"Delete from conversations where id = {Conversation.Id}");
         }
-        */
+        
     }
 }
