@@ -38,7 +38,6 @@ namespace ChatBot.Forms.Views.User
 
         public void PrintMessages()
         {
-            labelMessages.Text = "";
             textBoxMessages.Text = "";
 
             var conversationItems = _conversationItemService.GetListConversationItemsByConversationId(_conversationId);
@@ -47,15 +46,16 @@ namespace ChatBot.Forms.Views.User
             {
                 if (item.Order % 2 == 0)
                 {
-                    labelMessages.Text += "Assistant:\n" + item.Message + "\n\n";
-                    textBoxMessages.Text += "Assistant:\n" + item.Message + "\n\n";
+                    textBoxMessages.Text += "Assistant:" + Environment.NewLine + item.Message + Environment.NewLine + Environment.NewLine;
                 }
                 else
                 {
-                    labelMessages.Text += "User:\n" + item.Message + "\n\n";
-                    textBoxMessages.Text += "User:\n" + item.Message + "\n\n";
+                    textBoxMessages.Text += "User:" + Environment.NewLine + item.Message + Environment.NewLine + Environment.NewLine;
                 }
             });
+
+            textBoxMessages.SelectionStart = textBoxMessages.Text.Length;
+            textBoxMessages.ScrollToCaret();
         }
 
         private void ChatForm_Load(object sender, EventArgs e)
