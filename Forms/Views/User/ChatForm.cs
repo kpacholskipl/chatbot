@@ -116,7 +116,10 @@ namespace ChatBot.Forms.Views.User
                 _conversationItemService.CreateConversationItem(conversationItem);
                 conversation = _conversationService.GetConversation(_conversationId);
 
-                await new ChatHelper().Send(conversation, _loggedUser);
+                using (LoaderForm loader = new LoaderForm(async () => await new ChatHelper().Send(conversation, _loggedUser)))
+                {
+                    loader.ShowDialog();
+                }
 
                 PrintMessages();
             }
