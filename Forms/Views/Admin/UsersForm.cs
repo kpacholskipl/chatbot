@@ -153,7 +153,8 @@ namespace ChatBot.Forms.Views.Admin
                 }
 
                 var isEmailExistInDB = _userService.GetListUsers().FirstOrDefault(e => e.Email == email);
-                if (isEmailExistInDB != null)
+                var editedUser = _userService.GetListUsers().FirstOrDefault(e => e.Id == (int)userID);
+                if (isEmailExistInDB != null && editedUser.Email != email)
                 {
                     MessageBox.Show("This email is already in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
