@@ -19,7 +19,6 @@ namespace ChatBot.Models
         }
         public enum ModelTypes
         {
-            Model_3_5,
             Model_3_5_Turbo,
             Model_4
         }
