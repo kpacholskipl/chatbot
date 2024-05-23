@@ -28,6 +28,13 @@ namespace ChatBot.Forms.Views.User
             InitializeComponent();
             _loggedUser = user;
 
+            if (string.IsNullOrEmpty(_loggedUser.ApiKey))
+            {
+                MessageBox.Show("Please enter an api key");
+                OpenChildForm(new MyAccountForm(_loggedUser));
+                return;
+            }
+
             var frm = new ChatPropertiesForm(_loggedUser);
             frm.FormClosedEvent += ChatPropertiesForm_FormClosedEvent;
 
@@ -51,6 +58,13 @@ namespace ChatBot.Forms.Views.User
             InitializeComponent();
             _loggedUser = user;
             _conversationId = conversationId;
+
+            if (string.IsNullOrEmpty(_loggedUser.ApiKey))
+            {
+                MessageBox.Show("Please enter an api key");
+                OpenChildForm(new MyAccountForm(_loggedUser));
+                return;
+            }
 
             PrintMessages();
         }
@@ -79,11 +93,7 @@ namespace ChatBot.Forms.Views.User
 
         private void ChatForm_Load(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(_loggedUser.ApiKey))
-            {
-                MessageBox.Show("Please enter an api key");
-                OpenChildForm(new MyAccountForm(_loggedUser));
-            }
+            
         }
 
         private void OpenChildForm(Form childForm)
