@@ -1,4 +1,5 @@
-﻿using ChatBot.Models;
+﻿using ChatBot.Helpers;
+using ChatBot.Models;
 using ChatBot.Services;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -150,6 +152,13 @@ namespace ChatBot.Forms.Views.Admin
                     return;
                 }
 
+                var isEmailExistInDB = _userService.GetListUsers().FirstOrDefault(e => e.Email == email);
+                if (isEmailExistInDB != null)
+                {
+                    MessageBox.Show("This email is already in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 var user = new Models.User((int)userID, subscriptionId, email, role, password, name, apiKey);
 
                 _userService.UpdateUser(user);
@@ -192,23 +201,17 @@ namespace ChatBot.Forms.Views.Admin
                     return;
                 }
 
+                var isEmailExistInDB = _userService.GetListUsers().FirstOrDefault(e => e.Email == email);
+                if (isEmailExistInDB != null)
+                {
+                    MessageBox.Show("This email is already in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
                 var user = new Models.User(subscriptionId, email, role, password, name, apiKey);
 
                 _userService.CreateUser(user);
                 LoadUsers();
-            }
-        }
-
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
             }
         }
 
@@ -226,7 +229,7 @@ namespace ChatBot.Forms.Views.Admin
                 return false;
             }
 
-            if (string.IsNullOrEmpty(email) || !IsValidEmail(email))
+            if (string.IsNullOrEmpty(email) || !UserHelper.IsValidEmail(email))
             {
                 MessageBox.Show("Please enter a valid email address.");
                 return false;

@@ -1,4 +1,5 @@
-﻿using ChatBot.Models;
+﻿using ChatBot.Helpers;
+using ChatBot.Models;
 using ChatBot.Services;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -15,6 +17,7 @@ namespace ChatBot.Forms.Auth
 {
     public partial class RegisterForm : Form
     {
+        private readonly UserService _userService = new UserService();
         public RegisterForm()
         {
             InitializeComponent();
@@ -41,7 +44,7 @@ namespace ChatBot.Forms.Auth
             string passwordRepeat = textBoxPasswordRepeat.Text ?? "";
             Subscription subscriptionPlan = (Subscription)comboBoxSubscriptionPlan.SelectedItem;
 
-            if (string.IsNullOrEmpty(email) || !IsValidEmail(email))
+            if (string.IsNullOrEmpty(email) || !UserHelper.IsValidEmail(email))
             {
                 MessageBox.Show("Please enter a valid email address.");
                 return;
@@ -71,6 +74,13 @@ namespace ChatBot.Forms.Auth
                 return;
             }
 
+            var isEmailExistInDB = _userService.GetListUsers().FirstOrDefault(e => e.Email == email);
+            if (isEmailExistInDB != null)
+            {
+                MessageBox.Show("This email is already in use", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var newUser = new User(subscriptionPlan.Id, email, 0, password, name);
 
             var userService = new UserService();
@@ -87,18 +97,6 @@ namespace ChatBot.Forms.Auth
             {
                 MessageBox.Show("Something went wrong!");
                 return;
-            }
-        }
-        private bool IsValidEmail(string email)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(email);
-                return addr.Address == email;
-            }
-            catch
-            {
-                return false;
             }
         }
     }

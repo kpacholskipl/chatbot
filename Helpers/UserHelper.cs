@@ -6,6 +6,7 @@ using ChatBot.Models;
 using System.Security.Cryptography;
 using System.Text;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ChatBot.Helpers
 {
@@ -71,6 +72,25 @@ namespace ChatBot.Helpers
                 }
 
                 return builder.ToString();
+            }
+        }
+
+        public static bool IsValidEmail(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+                return false;
+
+            try
+            {
+                email = email.Trim();
+
+                string pattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+                Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                return regex.IsMatch(email);
+            }
+            catch
+            {
+                return false;
             }
         }
     }
