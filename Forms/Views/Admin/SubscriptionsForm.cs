@@ -166,6 +166,15 @@ namespace ChatBot.Forms.Views.Admin
             {
                 DataGridViewRow selectedRow = dataGridViewSubscriptions.SelectedRows[0];
 
+                int selectedIndex = selectedRow.Index;
+                int lastIndex = dataGridViewSubscriptions.Rows.Count - 2;
+
+                if (selectedIndex != lastIndex)
+                {
+                    MessageBox.Show("You can't do it, start typing new values and then try to add", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 var name = selectedRow.Cells[1].Value?.ToString();
                 decimal price;
                 if (!decimal.TryParse(selectedRow.Cells[2].Value?.ToString(), out price))
