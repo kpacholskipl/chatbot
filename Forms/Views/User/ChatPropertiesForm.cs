@@ -38,6 +38,7 @@ namespace ChatBot.Forms.Views.User
             });
 
             comboBoxCategory.DisplayMember = "name";
+            this.ControlBox = false;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)

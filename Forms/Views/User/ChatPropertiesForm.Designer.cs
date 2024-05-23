@@ -100,6 +100,7 @@
             Controls.Add(comboBoxCategory);
             Controls.Add(textBoxTitle);
             Controls.Add(labelTitle);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             Name = "ChatPropertiesForm";
             StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             Text = "ChatPropertiesForm";

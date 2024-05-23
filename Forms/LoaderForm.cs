@@ -17,8 +17,6 @@ namespace ChatBot.Forms
         public LoaderForm(Func<Task> worker)
         {
             InitializeComponent();
-            this.BackColor = Color.LimeGreen;
-            this.TransparencyKey = Color.LimeGreen;
             if (worker == null)
             {
                 throw new ArgumentNullException(nameof(worker));
