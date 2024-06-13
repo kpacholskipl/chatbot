@@ -41,7 +41,7 @@ namespace ChatBot.Services
             {
                 throw new Exception("Zbyt duza liczba konwersacji");
             }
-            SqlCommand cmd = new SqlCommand("Insert into Conversations (user_id, category_id, title,limit_query, limit_conversation) VALUES (@userId, @categoryId, @title, @query, @conversation)");
+            SqlCommand cmd = new SqlCommand("Insert into Conversations (user_id, category_id, title) VALUES (@userId, @categoryId, @title)");
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation, true);
             return new DatabaseHelper().InsertCommand(cmd);
         }
