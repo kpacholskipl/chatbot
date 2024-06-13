@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -18,7 +19,15 @@ namespace ChatBot.Services
         }
 
         public List<ConversationItem> GetListConversationItems() => ConversationItemHelper.GetFromDataSet(GetConversationItems());
-        
+        public List<ConversationItem> GetConversationItemsByUserId(int userId)
+        {
+           
+            string todayStart = DateTime.Today.ToString("yyyy-MM-dd HH:mm:ss");
+            //string query = $"Select ci.* from conversation_items ci JOIN conversations c ON ci.conversation_id = c.id where c.user_id = {userId}";
+            string query = $"Select ci.* from conversation_items ci JOIN conversations c ON ci.conversation_id = c.id where c.user_id = {userId} AND ci.created_at > '{todayStart}'";
+            Console.WriteLine(query);
+            return ConversationItemHelper.GetFromDataSet(new DatabaseHelper().SelectQuery(query, "conversation_items"));
+        }
         public DataSet GetConversationItems() => GetConversationItems();
         public ConversationItem GetConversationItem(int id) => ConversationItemHelper.GetFromDataSet(GetConversationItems($"id = {id}")).FirstOrDefault();
 

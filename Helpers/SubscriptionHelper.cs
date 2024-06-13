@@ -15,6 +15,8 @@ namespace ChatBot.Helpers
             foreach (DataRow row in ds.Tables["Subscriptions"].Rows)
             {
                 int id = Convert.ToInt32(row["id"]);
+                int limitQuery = Convert.ToInt32(row["limit_query"]);
+                int limitConversation = Convert.ToInt32(row["limit_conversation"]);
                 string name = row["name"].ToString();
                 decimal role = Convert.ToDecimal(row["price"]);
                 string periodString = (string)row["period"];
@@ -22,7 +24,7 @@ namespace ChatBot.Helpers
                 string modelString = (string)row["model"];
                 Subscription.ModelTypes model = (Subscription.ModelTypes)Enum.Parse(typeof(Subscription.ModelTypes), modelString);
 
-                Subscription Subscription = new Subscription(id, name, role, period, model);
+                Subscription Subscription = new Subscription(id, name, role, period, model,limitQuery, limitConversation);
                 Subscriptions.Add(Subscription);
             }
 
@@ -33,6 +35,8 @@ namespace ChatBot.Helpers
             cmd.Parameters.AddWithValue("@name", subscription.Name);
             cmd.Parameters.AddWithValue("@period", subscription.Period.ToString());
             cmd.Parameters.AddWithValue("@model", subscription.Model.ToString());
+            cmd.Parameters.AddWithValue("@query", subscription.LimitQuery.ToString());
+            cmd.Parameters.AddWithValue("@converstion", subscription.LimitConversation.ToString());
             cmd.Parameters.AddWithValue("@price", subscription.Price);
 
             return cmd;

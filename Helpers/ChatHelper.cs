@@ -31,6 +31,13 @@ namespace ChatBot.Helpers
             {
                 throw new Exception("Ostatnia wiadomość to nie twoja wiadomość");
             }
+            int countQuery = new ConversationItemService().GetConversationItemsByUserId(user.Id).Count;
+            Subscription subscription = new SubscriptionService().GetSubsciprtion(user.SubscriptionId);
+
+            if (countQuery >= subscription.LimitQuery)
+            {
+                throw new Exception("Zbyt duza liczba zapytan");
+            }
             string apiKey = user.ApiKey;
             string apiUrl = "https://api.openai.com/v1/chat/completions";
 
@@ -44,6 +51,8 @@ namespace ChatBot.Helpers
             var request = new
             {
                 model,
+
+
                 messages = GetMessages(conversation),
             };
 

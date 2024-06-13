@@ -9,6 +9,8 @@ namespace ChatBot.Models
     public class Subscription
     {
         public int Id { get; set; }
+        public int LimitQuery { get; set; }
+        public int LimitConversation { get; set; }
         public string Name { get; set; }
         public decimal Price { get; set; }
 
@@ -32,7 +34,17 @@ namespace ChatBot.Models
             Period = period;
             Model = model;      
         }
+        public Subscription(int id, string name, decimal price, PeriodTypes period, ModelTypes model, int limitQuery, int limitConversation)
+        {
+            Id = id;
+            Name = name;
+            Price = price;
+            Period = period;
+            Model = model;
+            LimitConversation = limitConversation;
+            LimitQuery = limitQuery;
 
+        }
         public Subscription(string name, decimal price, PeriodTypes period, ModelTypes model)
         {
             Name = name;

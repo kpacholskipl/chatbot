@@ -20,7 +20,7 @@ namespace ChatBot.Services
         public List<Subscription> GetListSubsciprtions() => SubscriptionHelper.GetFromDataSet(GetSubsciprtionsData());
         public DataSet GetSubsciprtions() =>GetSubsciprtionsData();
         public Subscription GetSubsciprtion(int id) => SubscriptionHelper.GetFromDataSet(GetSubsciprtionsData($"id = {id}")).FirstOrDefault();
-
+      
         public bool CreatSubscription(Subscription subscription)
         {
             SqlCommand cmd = new SqlCommand("Insert into subscriptions (name, price, model, period) VALUES (@name, @price, @model, @period)");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Metadata;
 using ChatBot.Helpers;
 using ChatBot.Models;
 
@@ -31,9 +32,16 @@ namespace ChatBot.Services
             }
             return conversation;
         }
-        public bool CreateConversation(Conversation Conversation)
+        public bool CreateConversation(Conversation Conversation, User user)
         {
-            SqlCommand cmd = new SqlCommand("Insert into Conversations (user_id, category_id, title) VALUES (@userId, @categoryId, @title)");
+            int limitConversation = this.GetConversationsByUser(user.Id).Count;
+            Subscription subscription = new SubscriptionService().GetSubsciprtion(user.SubscriptionId);
+
+            if (limitConversation >= subscription.LimitConversation)
+            {
+                throw new Exception("Zbyt duza liczba konwersacji");
+            }
+            SqlCommand cmd = new SqlCommand("Insert into Conversations (user_id, category_id, title,limit_query, limit_conversation) VALUES (@userId, @categoryId, @title, @query, @conversation)");
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation, true);
             return new DatabaseHelper().InsertCommand(cmd);
         }
@@ -47,7 +55,7 @@ namespace ChatBot.Services
 
         public bool UpdateConversation(Conversation Conversation)
         {
-            SqlCommand cmd = new SqlCommand("Update Conversations SET category_id = @category_id, title = @title WHERE id = @id");
+            SqlCommand cmd = new SqlCommand("Update Conversations SET category_id = @category_id, title = @title, limit_query = @query, limit_conversation = @conversation WHERE id = @id");
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation);
             cmd.Parameters.AddWithValue("id", Conversation.Id);
             return new DatabaseHelper().UpdateCommand(cmd);
