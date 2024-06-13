@@ -23,17 +23,29 @@ namespace ChatBot.Forms.Views.User
             _loggedUser = loggedUser;
         }
 
-        private void HistoryForm_Load(object sender, EventArgs e)
+        public void LoadData()
         {
             var conversations = _conversationService.GetConversationsByUser(_loggedUser.Id);
             dataGridViewHistory.DataSource = conversations;
+        }
 
-            DataGridViewButtonColumn btnColumn = new DataGridViewButtonColumn();
-            btnColumn.HeaderText = "Action";
-            btnColumn.Text = "Show"; 
-            btnColumn.Name = "btnAction"; 
-            btnColumn.UseColumnTextForButtonValue = true; 
-            dataGridViewHistory.Columns.Add(btnColumn);
+        private void HistoryForm_Load(object sender, EventArgs e)
+        {
+            LoadData();
+
+            DataGridViewButtonColumn btnShowColumn = new DataGridViewButtonColumn();
+            btnShowColumn.HeaderText = "Action";
+            btnShowColumn.Text = "Show";
+            btnShowColumn.Name = "btnShow";
+            btnShowColumn.UseColumnTextForButtonValue = true;
+            dataGridViewHistory.Columns.Add(btnShowColumn);
+
+            DataGridViewButtonColumn btnDeleteColumn = new DataGridViewButtonColumn();
+            btnDeleteColumn.HeaderText = "Delete";
+            btnDeleteColumn.Text = "Delete";
+            btnDeleteColumn.Name = "btnDelete";
+            btnDeleteColumn.UseColumnTextForButtonValue = true;
+            dataGridViewHistory.Columns.Add(btnDeleteColumn);
 
             dataGridViewHistory.CellContentClick += DataGridViewHistory_CellContentClick;
 
@@ -44,11 +56,17 @@ namespace ChatBot.Forms.Views.User
 
         private void DataGridViewHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataGridViewHistory.Columns["btnAction"].Index && e.RowIndex >= 0)
+            if (e.ColumnIndex == dataGridViewHistory.Columns["btnShow"].Index)
             {
                 var id = (int)dataGridViewHistory.Rows[e.RowIndex].Cells["id"].Value;
-
                 OpenChildForm(new ChatForm(_loggedUser, id));
+            }
+
+            if (e.ColumnIndex == dataGridViewHistory.Columns["btnDelete"].Index)
+            {
+                var id = (int)dataGridViewHistory.Rows[e.RowIndex].Cells["id"].Value;
+                _conversationService.DeleteConversation(id);
+                LoadData();
             }
         }
 

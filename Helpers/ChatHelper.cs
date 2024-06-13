@@ -16,6 +16,7 @@ using Microsoft.VisualBasic;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Microsoft.VisualBasic.ApplicationServices;
+using System.Windows.Forms;
 
 namespace ChatBot.Helpers
 {
@@ -25,18 +26,24 @@ namespace ChatBot.Helpers
         {
             if (conversation.Items.Count() == 0)
             {
-                throw new Exception("Brak wiadomości");
+                new ConversationItemService().DeleteConversation(conversation.Items.LastOrDefault().Id);
+                MessageBox.Show("No messages", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             if (conversation.Items.Count() % 2  == 0)
             {
-                throw new Exception("Ostatnia wiadomość to nie twoja wiadomość");
+                new ConversationItemService().DeleteConversation(conversation.Items.LastOrDefault().Id);
+                MessageBox.Show("Last message is not your message!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             int countQuery = new ConversationItemService().GetConversationItemsByUserId(user.Id).Count;
             Subscription subscription = new SubscriptionService().GetSubsciprtion(user.SubscriptionId);
 
             if (countQuery >= subscription.LimitQuery)
             {
-                throw new Exception("Zbyt duza liczba zapytan");
+                new ConversationItemService().DeleteConversation(conversation.Items.LastOrDefault().Id);
+                MessageBox.Show("To many requests!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
             string apiKey = user.ApiKey;
             string apiUrl = "https://api.openai.com/v1/chat/completions";

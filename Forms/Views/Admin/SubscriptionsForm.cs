@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -52,6 +53,8 @@ namespace ChatBot.Forms.Views.Admin
             dataGridViewSubscriptions.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Price", DataPropertyName = "price" });
             dataGridViewSubscriptions.Columns.Add(periodTypeColumn);
             dataGridViewSubscriptions.Columns.Add(modelTypeColumn);
+            dataGridViewSubscriptions.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Limit of queries", DataPropertyName = "limit_query" });
+            dataGridViewSubscriptions.Columns.Add(new DataGridViewTextBoxColumn { HeaderText = "Limit of conversations", DataPropertyName = "limit_conversation" });
         }
 
         private void LoadSubscriptions()
@@ -126,6 +129,8 @@ namespace ChatBot.Forms.Views.Admin
 
                 var period = selectedRow.Cells[3].Value?.ToString();
                 var model = selectedRow.Cells[4].Value?.ToString();
+                var limitQuery = (int)selectedRow.Cells[5]?.Value;
+                var limitConversation = (int)selectedRow.Cells[6]?.Value;
                 var subscriptionID = selectedRow.Cells[0].Value;
                 if (subscriptionID == null || string.IsNullOrEmpty(subscriptionID.ToString()))
                 {
@@ -133,7 +138,7 @@ namespace ChatBot.Forms.Views.Admin
                     return;
                 }
 
-                if (ValidateFields(name, price, period, model))
+                if (ValidateFields(name, price, period, model, limitQuery, limitConversation))
                 {
                     Subscription.PeriodTypes periodType;
                     if (!Enum.TryParse(period, out periodType))
@@ -149,7 +154,7 @@ namespace ChatBot.Forms.Views.Admin
                         return;
                     }
 
-                    var subscription = new Subscription((int)subscriptionID, name, price, periodType, modelType);
+                    var subscription = new Subscription((int)subscriptionID, name, price, periodType, modelType, limitQuery, limitConversation);
 
                     _subscriptionService.UpdateSubscription(subscription);
                     LoadSubscriptions();
@@ -185,8 +190,10 @@ namespace ChatBot.Forms.Views.Admin
 
                 var period = selectedRow.Cells[3].Value?.ToString();
                 var model = selectedRow.Cells[4].Value?.ToString();
+                var limitQuery = (int)selectedRow.Cells[5]?.Value;
+                var limitConversation = (int)selectedRow.Cells[6]?.Value;
 
-                if (ValidateFields(name, price, period, model))
+                if (ValidateFields(name, price, period, model, limitQuery, limitConversation))
                 {
                     Subscription.PeriodTypes periodType;
                     if (!Enum.TryParse(period, out periodType))
@@ -202,7 +209,7 @@ namespace ChatBot.Forms.Views.Admin
                         return;
                     }
 
-                    var subscription = new Subscription(name, price, periodType, modelType);
+                    var subscription = new Subscription(name, price, periodType, modelType, limitQuery, limitConversation);
 
                     _subscriptionService.CreatSubscription(subscription);
                     LoadSubscriptions();
@@ -210,7 +217,7 @@ namespace ChatBot.Forms.Views.Admin
             }
         }
 
-        private bool ValidateFields(string name, decimal price, string period, string model)
+        private bool ValidateFields(string name, decimal price, string period, string model, int limitQuery, int limitConversation)
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -233,6 +240,12 @@ namespace ChatBot.Forms.Views.Admin
             if (string.IsNullOrEmpty(model) || !Enum.IsDefined(typeof(Subscription.ModelTypes), model))
             {
                 MessageBox.Show("Please select a valid model.");
+                return false;
+            }
+
+            if (limitQuery <= 0 || limitConversation <= 0)
+            {
+                MessageBox.Show("Please enter a valid limit.");
                 return false;
             }
 

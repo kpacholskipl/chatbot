@@ -45,12 +45,14 @@ namespace ChatBot.Models
             LimitQuery = limitQuery;
 
         }
-        public Subscription(string name, decimal price, PeriodTypes period, ModelTypes model)
+        public Subscription(string name, decimal price, PeriodTypes period, ModelTypes model, int limitQuery, int limitConversation)
         {
             Name = name;
             Price = price;
             Period = period;
             Model = model;
+            LimitConversation = limitConversation;
+            LimitQuery = limitQuery;
         }
     }
 }

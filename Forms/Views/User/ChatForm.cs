@@ -91,11 +91,6 @@ namespace ChatBot.Forms.Views.User
             textBoxMessages.ScrollToCaret();
         }
 
-        private void ChatForm_Load(object sender, EventArgs e)
-        {
-            
-        }
-
         private void OpenChildForm(Form childForm)
         {
             if (currentChildForm != null)

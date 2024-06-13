@@ -60,9 +60,9 @@ namespace ChatBot.Services
             cmd.Parameters.AddWithValue("id", Conversation.Id);
             return new DatabaseHelper().UpdateCommand(cmd);
         }
-        public bool DeleteConversation (Conversation Conversation)
+        public bool DeleteConversation (int id)
         {
-            return new DatabaseHelper().DeleteQuery($"Delete from conversations where id = {Conversation.Id}");
+            return new DatabaseHelper().DeleteQuery($"Delete from conversations where id = {id}");
         }
         
     }

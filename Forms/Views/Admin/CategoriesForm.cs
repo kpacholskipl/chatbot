@@ -160,10 +160,5 @@ namespace ChatBot.Forms.Views.Admin
 
             return true;
         }
-
-        private void dataGridViewCategories_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
     }
 }

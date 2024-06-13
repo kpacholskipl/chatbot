@@ -99,7 +99,7 @@
             Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             Name = "ChatForm";
             Text = "ChatForm";
-            Load += ChatForm_Load;
+            //Load += ChatForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);

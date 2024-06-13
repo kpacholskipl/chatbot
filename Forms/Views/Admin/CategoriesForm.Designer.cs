@@ -68,7 +68,7 @@
             bindingNavigatorCategories.Size = new System.Drawing.Size(933, 25);
             bindingNavigatorCategories.TabIndex = 5;
             bindingNavigatorCategories.Text = "bindingNavigator1";
-            //bindingNavigatorCategories.RefreshItems += this.bindingNavigatorCategories_RefreshItems;
+            //bindingNavigatorCategories.RefreshItems += bindingNavigatorCategories_RefreshItems;
             // 
             // bindingNavigatorCountItem
             // 
@@ -184,7 +184,7 @@
             dataGridViewCategories.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             dataGridViewCategories.Size = new System.Drawing.Size(933, 473);
             dataGridViewCategories.TabIndex = 4;
-            dataGridViewCategories.CellContentClick += dataGridViewCategories_CellContentClick;
+            //dataGridViewCategories.CellContentClick += dataGridViewCategories_CellContentClick;
             // 
             // CategoriesForm
             // 

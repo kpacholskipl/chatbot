@@ -39,6 +39,11 @@ namespace ChatBot.Services
             cmd = ConversationItemHelper.AddParametrsToSqlCommand(cmd, conversationItem);
             return new DatabaseHelper().InsertCommand(cmd);
         }
+
+        public bool DeleteConversation(int id)
+        {
+            return new DatabaseHelper().DeleteQuery($"Delete from conversation_items where id = {id}");
+        }
     }
 }
 
