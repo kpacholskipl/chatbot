@@ -35,7 +35,7 @@ namespace ChatBot.Helpers
             cmd.Parameters.AddWithValue("@name", subscription.Name);
             cmd.Parameters.AddWithValue("@period", subscription.Period.ToString());
             cmd.Parameters.AddWithValue("@model", subscription.Model.ToString());
-            cmd.Parameters.AddWithValue("@query", 6);
+            cmd.Parameters.AddWithValue("@limit", subscription.LimitQuery);
             cmd.Parameters.AddWithValue("@converstion", subscription.LimitConversation);
             cmd.Parameters.AddWithValue("@price", subscription.Price);
 
