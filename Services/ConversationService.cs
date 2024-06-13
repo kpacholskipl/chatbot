@@ -55,13 +55,14 @@ namespace ChatBot.Services
 
         public bool UpdateConversation(Conversation Conversation)
         {
-            SqlCommand cmd = new SqlCommand("Update Conversations SET category_id = @category_id, title = @title, limit_query = @query, limit_conversation = @conversation WHERE id = @id");
+            SqlCommand cmd = new SqlCommand("Update Conversations SET category_id = @category_id, title = @title WHERE id = @id");
             cmd = ConversationHelper.AddParametrsToSqlCommand(cmd, Conversation);
             cmd.Parameters.AddWithValue("id", Conversation.Id);
             return new DatabaseHelper().UpdateCommand(cmd);
         }
         public bool DeleteConversation (int id)
         {
+             new DatabaseHelper().DeleteQuery($"Delete from conversation_items where conversation_id = {id}");
             return new DatabaseHelper().DeleteQuery($"Delete from conversations where id = {id}");
         }
         

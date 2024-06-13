@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -30,10 +31,10 @@ namespace ChatBot.Services
         }
         public bool UpdateSubscription(Subscription subscription)
         {
-            SqlCommand cmd = new SqlCommand("Update subscriptions SET name = @name, price = @price, model = @model, period = @period WHERE id = @id");
+            SqlCommand cmd = new SqlCommand("Update subscriptions SET name = @name, price = @price, model = @model, period = @period, limit_query = @query, limit_conversation = @conversation WHERE id = @id");
             cmd = SubscriptionHelper.AddParametrsToSqlCommand(cmd, subscription);
             cmd.Parameters.AddWithValue("@id", subscription.Id);
-            return new DatabaseHelper().UpdateCommand(cmd);
+           return new DatabaseHelper().UpdateCommand(cmd);
         }
         public bool DeleteSubscription(int id)
         {

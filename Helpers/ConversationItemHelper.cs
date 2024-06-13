@@ -12,7 +12,6 @@ namespace ChatBot.Helpers
         {
            List<ConversationItem> conversationItems = new();
 
-            Console.WriteLine(ds.Tables);
              foreach (DataRow row in ds.Tables["conversation_items"].Rows)
             {
                 int id = Convert.ToInt32(row["id"]);
